@@ -1,0 +1,44 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+### Node
+angularapp/src/main/angularapp/dist
+angularapp/src/main/angularapp/node_modules
+angularapp/src/main/angularapp/node/
+angularapp/src/main/angularapp/node/node_modules
+angularapp/src/main/angularapp/package-lock.json
+
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/

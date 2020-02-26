@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="admin" id="create-seller-table">
+        <createTable tableName="seller">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="login_code" type="VARCHAR"> 
+            	<constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="seller"/>
+        </rollback>
+    </changeSet>
+    
+    <changeSet author="admin" id="create-page-info">
+    	<createTable tableName="page_info">
+    		<column name="infoid" type="BIGINT"  autoIncrement="true">
+    			<constraints primaryKey="true"/>
+    		</column>
+    		<column name="name" type="VARCHAR">
+    		        <constraints nullable="false"/>
+    		</column>
+    		<column name="xrows" type="INT">
+    		        <constraints nullable="false"/>
+    		</column>
+    		<column name="yrows" type="INT">
+    		        <constraints nullable="false"/>
+    		</column>
+    	
+    	</createTable>
+    	<rollback>
+    		<dropTable tableName="page_info"/>
+    	</rollback>
+    </changeSet>
+    
+    <changeSet author="admin" id="create-product">
+    	<createTable tableName="product">
+    		<column name="id" type="INT" autoIncrement="true">
+    			<constraints primaryKey="true" nullable="false"/>
+    		</column>
+    		<column name="name" type="VARCHAR">
+    			<constraints nullable="false"/>
+    		</column>
+    		<column name="info" type="VARCHAR">
+    			<constraints nullable="true"/>
+    		</column>
+    		<column name="image" type="VARCHAR">
+    		</column>
+    		<column name="price" type="DECIMAL">
+    			<constraints nullable="false"/>
+    		</column>
+    	</createTable>
+    
+    </changeSet>
+    
+    
+    
+    
+    
+</databaseChangeLog>
