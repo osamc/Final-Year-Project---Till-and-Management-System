@@ -11,5 +11,11 @@
 	<bean id="PageImpl" class="com.sam.tillsystem.service.PageImpl">
 	</bean>
 	
+	<bean id="ProductImpl" class="com.sam.tillsystem.service.ProductImpl">
+	</bean>
+	
+	<bean id="PageDefinitionImpl" class="com.sam.tillsystem.service.PageDefinitionImpl">
+	</bean>
+	
 	<context:annotation-config/>
 </beans>

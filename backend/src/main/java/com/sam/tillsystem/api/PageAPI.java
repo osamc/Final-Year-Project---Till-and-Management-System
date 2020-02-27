@@ -6,8 +6,8 @@ import com.sam.tillsystem.models.page.PageInfo;
 
 public interface PageAPI {
 	
-	public int createPage(String name, int xcount, int ycount);
-	public int createPage(PageInfo page);
+	public PageInfo createPage(String name, int xcount, int ycount);
+	public PageInfo createPage(PageInfo page);
 	
 	public PageInfo getPage(int id);
 	public List<PageInfo> getPages();

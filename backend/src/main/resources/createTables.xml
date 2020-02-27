@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet author="admin" id="create-seller-table">
+    <changeSet author="sam" id="create-seller-table">
         <createTable tableName="seller">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -23,10 +23,10 @@
         </rollback>
     </changeSet>
     
-    <changeSet author="admin" id="create-page-info">
+    <changeSet author="sam" id="create-page-info">
     	<createTable tableName="page_info">
-    		<column name="infoid" type="BIGINT"  autoIncrement="true">
-    			<constraints primaryKey="true"/>
+    		<column name="infoid" type="INT"  autoIncrement="true">
+    			<constraints primaryKey="true" nullable="false"/>
     		</column>
     		<column name="name" type="VARCHAR">
     		        <constraints nullable="false"/>
@@ -44,7 +44,7 @@
     	</rollback>
     </changeSet>
     
-    <changeSet author="admin" id="create-product">
+    <changeSet author="sam" id="create-product">
     	<createTable tableName="product">
     		<column name="id" type="INT" autoIncrement="true">
     			<constraints primaryKey="true" nullable="false"/>
@@ -61,9 +61,27 @@
     			<constraints nullable="false"/>
     		</column>
     	</createTable>
-    
+    	<rollback>
+    		<dropTable tableName="product"/>
+    	</rollback>
     </changeSet>
     
+    <changeSet author="sam" id="create-pagedef">
+    	<createTable tableName="page_def">
+    		<column name="page_id" type="INT">
+    			<constraints primaryKey="true" nullable="false" deleteCascade="true" foreignKeyName="fk_page_id" references="page_info(infoid)"/>
+    		</column>
+    		<column name="product_id" type="INT">
+    			<constraints primaryKey="true" nullable="false" deleteCascade="true" foreignKeyName="fk_product_id" references="product(id)"/>
+    		</column>
+    		<column name="x" type="INT">
+    			<constraints primaryKey="true" nullable="false"/>
+    		</column> 
+    			<column name="y" type="INT">
+    			<constraints primaryKey="true" nullable="false"/>
+    		</column>
+    	</createTable>
+    </changeSet>
     
     
     

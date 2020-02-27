@@ -7,10 +7,12 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.sam.tillsystem.api.ProductAPI;
 import com.sam.tillsystem.models.Product.Product;
 
+@Repository
 public class ProductImpl extends BaseImpl implements ProductAPI {
 
 	private RowMapper<Product> productMapper = new RowMapper<Product>() {
@@ -23,7 +25,7 @@ public class ProductImpl extends BaseImpl implements ProductAPI {
 			product.setName(rs.getString("name"));
 			product.setImage(rs.getString("image"));
 			product.setPrice(rs.getDouble("price"));
-			return null;
+			return product;
 		}
 
 	};
@@ -41,7 +43,7 @@ public class ProductImpl extends BaseImpl implements ProductAPI {
 	@Override
 	public Product createProduct(String name, String info, String imageUrl, Double price) {
 
-		int rows = this.template.update("INSERT INTO product (name,info, image, price) VALUES (?,?,?,?)",
+		int rows = this.template.update("INSERT INTO product (name, info, image, price) VALUES (?,?,?,?)",
 				new Object[] { name, info, imageUrl, price },
 				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DOUBLE });
 
@@ -55,9 +57,9 @@ public class ProductImpl extends BaseImpl implements ProductAPI {
 
 	@Override
 	public int updateProduct(Product product) {
-		return this.template.update("UPDATE product SET name=?, image=?, price=? WHERE id=?",
-				new Object[] { product.getName(), product.getImage(), product.getPrice(), product.getId() },
-				new int[] { Types.VARCHAR, Types.VARCHAR, Types.DOUBLE, Types.INTEGER });
+		return this.template.update("UPDATE product SET name=?, info=?, image=?, price=? WHERE id=?",
+				new Object[] { product.getName(), product.getInfo(), product.getImage(), product.getPrice(), product.getId() },
+				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DOUBLE, Types.INTEGER });
 	}
 
 	@Override
@@ -89,8 +91,7 @@ public class ProductImpl extends BaseImpl implements ProductAPI {
 	}
 
 	public Product getLastProduct() {
-		return this.template.query("SELECT * FROM product ORDER BY ID DESC LIMIT 1", productMapper).stream().findFirst()
-				.orElse(null);
+		return this.template.query("SELECT * FROM product ORDER BY id LIMIT 1", productMapper).stream().findFirst().orElse(null);
 	}
 
 }

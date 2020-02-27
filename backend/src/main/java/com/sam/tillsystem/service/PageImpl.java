@@ -5,15 +5,21 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sam.tillsystem.api.PageAPI;
+import com.sam.tillsystem.models.Product.Product;
+import com.sam.tillsystem.models.page.PageDefinition;
 import com.sam.tillsystem.models.page.PageInfo;
 
 @Repository
 public class PageImpl extends BaseImpl implements PageAPI {
+
+	@Autowired
+	ProductImpl productService;
 
 	private RowMapper<PageInfo> infoMapper = new RowMapper<PageInfo>() {
 
@@ -24,6 +30,7 @@ public class PageImpl extends BaseImpl implements PageAPI {
 			toReturn.setName(rs.getString("name"));
 			toReturn.setXRows(rs.getInt("xrows"));
 			toReturn.setYRows(rs.getInt("yrows"));
+			toReturn.setContents(getPageDefinition(toReturn.getInfoId()));
 			return toReturn;
 		}
 
@@ -34,17 +41,16 @@ public class PageImpl extends BaseImpl implements PageAPI {
 	}
 
 	@Override
-	public int createPage(String name, int xcount, int ycount) {
+	public PageInfo createPage(String name, int xcount, int ycount) {
 
 		int rows = this.template.update("INSERT INTO page_info (name, xrows, yrows) VALUES (?,?,?)",
 				new Object[] { name, xcount, ycount }, new int[] { Types.VARCHAR, Types.INTEGER, Types.INTEGER });
-		System.out.println(rows + " of rows inserted.");
 
-		return rows;
+		return rows > 0 ? getLastPage() : null;
 	}
 
 	@Override
-	public int createPage(PageInfo page) {
+	public PageInfo createPage(PageInfo page) {
 		return createPage(page.getName(), page.getXRows(), page.getYRows());
 	}
 
@@ -77,6 +83,34 @@ public class PageImpl extends BaseImpl implements PageAPI {
 	@Override
 	public boolean deletePage(PageInfo page) {
 		return deletePage(page.getInfoId());
+	}
+
+	public PageInfo getLastPage() {
+		return this.template.query("SELECT * FROM page_info ORDER BY infoid LIMIT 1", infoMapper).stream().findFirst()
+				.orElse(null);
+
+	}
+
+	public List<PageDefinition> getPageDefinition(int pageId) {
+
+		return this.template.query("SELECT * FROM page_def WHERE page_id=?", new Object[] { pageId },
+				new int[] { Types.INTEGER }, new RowMapper<PageDefinition>() {
+
+					@Override
+					public PageDefinition mapRow(ResultSet rs, int rowNum) throws SQLException {
+						PageDefinition pageDef = new PageDefinition();
+
+						pageDef.setX(rs.getInt("x"));
+						pageDef.setY(rs.getInt("y"));
+
+						Product p = productService.getProduct(rs.getInt("product_id"));
+						pageDef.setProduct(p);
+
+						return pageDef;
+					}
+
+				});
+
 	}
 
 }
