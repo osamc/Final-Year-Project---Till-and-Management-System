@@ -1,6 +1,6 @@
 package com.sam.tillsystem.models.page;
 
-import com.sam.tillsystem.models.Product.Product;
+import com.sam.tillsystem.models.product.Product;
 
 public class PageDefinition {
 	

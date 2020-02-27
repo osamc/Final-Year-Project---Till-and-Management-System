@@ -19,9 +19,9 @@ import com.sam.tillesystem.exceptions.CoordinatesOutOfRangeException;
 import com.sam.tillesystem.exceptions.PageInfoNotFoundException;
 import com.sam.tillesystem.exceptions.ProductAlreadyExistsException;
 import com.sam.tillesystem.exceptions.ProductNotFoundException;
-import com.sam.tillsystem.models.Product.Product;
 import com.sam.tillsystem.models.page.PageDefinition;
 import com.sam.tillsystem.models.page.PageInfo;
+import com.sam.tillsystem.models.product.Product;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

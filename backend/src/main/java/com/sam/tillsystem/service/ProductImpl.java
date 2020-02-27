@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sam.tillsystem.api.ProductAPI;
-import com.sam.tillsystem.models.Product.Product;
+import com.sam.tillsystem.models.product.Product;
 
 @Repository
 public class ProductImpl extends BaseImpl implements ProductAPI {

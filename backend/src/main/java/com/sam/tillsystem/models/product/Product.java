@@ -1,4 +1,4 @@
-package com.sam.tillsystem.models.Product;
+package com.sam.tillsystem.models.product;
 
 public class Product {
 

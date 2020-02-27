@@ -2,7 +2,7 @@ package com.sam.tillsystem.api;
 
 import java.util.List;
 
-import com.sam.tillsystem.models.Product.Product;
+import com.sam.tillsystem.models.product.Product;
 
 public interface ProductAPI {
 	

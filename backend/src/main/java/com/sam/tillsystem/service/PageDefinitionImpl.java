@@ -13,8 +13,8 @@ import com.sam.tillesystem.exceptions.PageInfoNotFoundException;
 import com.sam.tillesystem.exceptions.ProductAlreadyExistsException;
 import com.sam.tillesystem.exceptions.ProductNotFoundException;
 import com.sam.tillsystem.api.PageDefinitionAPI;
-import com.sam.tillsystem.models.Product.Product;
 import com.sam.tillsystem.models.page.PageInfo;
+import com.sam.tillsystem.models.product.Product;
 
 @Repository
 public class PageDefinitionImpl extends BaseImpl implements PageDefinitionAPI {

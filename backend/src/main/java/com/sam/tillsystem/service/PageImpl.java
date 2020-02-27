@@ -11,9 +11,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sam.tillsystem.api.PageAPI;
-import com.sam.tillsystem.models.Product.Product;
 import com.sam.tillsystem.models.page.PageDefinition;
 import com.sam.tillsystem.models.page.PageInfo;
+import com.sam.tillsystem.models.product.Product;
 
 @Repository
 public class PageImpl extends BaseImpl implements PageAPI {
