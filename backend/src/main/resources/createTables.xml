@@ -8,8 +8,8 @@
 
     <changeSet author="sam" id="create-seller-table">
         <createTable tableName="seller">
-            <column autoIncrement="true" name="id" type="INT">
-                <constraints primaryKey="true"/>
+            <column name="id" type="INT" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login_code" type="VARCHAR"> 
             	<constraints nullable="false"/>
@@ -25,7 +25,7 @@
     
     <changeSet author="sam" id="create-page-info">
     	<createTable tableName="page_info">
-    		<column name="infoid" type="INT"  autoIncrement="true">
+    		<column name="infoid" type="INT" autoIncrement="true">
     			<constraints primaryKey="true" nullable="false"/>
     		</column>
     		<column name="name" type="VARCHAR">
@@ -56,6 +56,7 @@
     			<constraints nullable="true"/>
     		</column>
     		<column name="image" type="VARCHAR">
+    			<constraints nullable="true"/>
     		</column>
     		<column name="price" type="DECIMAL">
     			<constraints nullable="false"/>
@@ -83,7 +84,35 @@
     	</createTable>
     </changeSet>
     
+    <changeSet author="sam" id="create-transaction-record">
+    	<createTable tableName="transaction_record">
+    		<column name="transaction_id" type="INT" autoIncrement="true">
+    			<constraints unique="true" primaryKey="true" nullable="false"/>
+    		</column>
+    		<column name="seller_id" type="INT">
+    			<constraints primaryKey="true" nullable="false" deleteCascade="true" foreignKeyName="fk_seller_id" references="seller(id)"/>
+    		</column>
+    		<column name="date" type="datetime">
+    			<constraints nullable="false"/>
+    		</column>
+    	</createTable>
+    </changeSet>
     
-    
+    <changeSet author="sam" id="create-transaction-details">
+    	<createTable tableName="transaction_details">
+    		<column name="trans_id" type="INT">
+    			<constraints primaryKey="true" nullable="false" deleteCascade="true" foreignKeyName="fk_trans_id" references="transaction_record(transaction_id)"/>
+    		</column>
+    		<column name="product_id" type="INT">
+    			<constraints primaryKey="true" nullable="false" deleteCascade="true" foreignKeyName="fk_product_id2" references="product(id)"/>
+    		</column>
+    		<column name="quantity" type="INT"> 
+    			<constraints nullable="false"/>
+    		</column>
+    		<column name="price" type="DECIMAL">
+    			<constraints nullable="false"/>
+    		</column>
+    	</createTable>
+    </changeSet>
     
 </databaseChangeLog>

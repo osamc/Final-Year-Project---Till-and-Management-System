@@ -56,20 +56,20 @@ public class ProductImpl extends BaseImpl implements ProductAPI {
 	}
 
 	@Override
-	public int updateProduct(Product product) {
+	public boolean updateProduct(Product product) {
 		return this.template.update("UPDATE product SET name=?, info=?, image=?, price=? WHERE id=?",
 				new Object[] { product.getName(), product.getInfo(), product.getImage(), product.getPrice(), product.getId() },
-				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DOUBLE, Types.INTEGER });
+				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DOUBLE, Types.INTEGER }) > 0;
 	}
 
 	@Override
-	public int deleteProduct(Product product) {
+	public boolean deleteProduct(Product product) {
 		return deleteProduct(product.getId());
 	}
 
 	@Override
-	public int deleteProduct(int id) {
-		return this.template.update("DELETE FROM product WHERE id=?", new Object[] { id }, new int[] { Types.INTEGER });
+	public boolean deleteProduct(int id) {
+		return this.template.update("DELETE FROM product WHERE id=?", new Object[] { id }, new int[] { Types.INTEGER }) > 0;
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class ProductImpl extends BaseImpl implements ProductAPI {
 	}
 
 	public Product getLastProduct() {
-		return this.template.query("SELECT * FROM product ORDER BY id LIMIT 1", productMapper).stream().findFirst().orElse(null);
+		return this.template.query("SELECT * FROM product ORDER BY id DESC LIMIT 1", productMapper).stream().findFirst().orElse(null);
 	}
 
 }

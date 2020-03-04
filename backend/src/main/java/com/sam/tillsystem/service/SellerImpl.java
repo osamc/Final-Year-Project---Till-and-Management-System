@@ -34,7 +34,7 @@ public class SellerImpl extends BaseImpl implements SellerAPI {
 	};
 
 	private Seller getLastSeller() {
-		return this.template.query("SELECT * FROM seller ORDER BY id LIMIT 1", this.sellerMapper).stream().findFirst()
+		return this.template.query("SELECT * FROM seller ORDER BY id DESC LIMIT 1", this.sellerMapper).stream().findFirst()
 				.orElse(null);
 	}
 

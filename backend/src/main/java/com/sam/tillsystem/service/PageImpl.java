@@ -86,7 +86,7 @@ public class PageImpl extends BaseImpl implements PageAPI {
 	}
 
 	public PageInfo getLastPage() {
-		return this.template.query("SELECT * FROM page_info ORDER BY infoid LIMIT 1", infoMapper).stream().findFirst()
+		return this.template.query("SELECT * FROM page_info ORDER BY infoid DESC LIMIT 1", infoMapper).stream().findFirst()
 				.orElse(null);
 
 	}

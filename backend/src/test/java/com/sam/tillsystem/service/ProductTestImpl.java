@@ -63,6 +63,22 @@ public class ProductTestImpl {
 	}
 	
 	@Test
+	public void testCreateMultipleProducts() {
+		Product product = new Product();
+		product.setImage("http://google.com");
+		product.setName("name");
+		product.setInfo("info");
+		product.setPrice(2.0);
+		
+		Product fromDb1 = service.createProduct(product);
+		product.setName("name2");
+		Product fromDb2 = service.createProduct(product);
+		
+		assertTrue(fromDb1.getId() != fromDb2.getId());
+
+	}
+	
+	@Test
 	public void testUpdateProduct() {
 		Product product = new Product();
 		product.setImage("http://google.com");
