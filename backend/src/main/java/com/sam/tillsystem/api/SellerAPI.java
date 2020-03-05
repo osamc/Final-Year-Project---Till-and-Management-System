@@ -1,5 +1,7 @@
 package com.sam.tillsystem.api;
 
+import java.util.List;
+
 import com.sam.tillsystem.models.user.Seller;
 
 public interface SellerAPI {
@@ -18,6 +20,12 @@ public interface SellerAPI {
 	 * @return the {@link Seller} if found, else null
 	 */
 	public Seller getSeller(int id);
+	
+	/**
+	 * Gets a list of sellers
+	 * @return a {@link List} of {@link Seller}s
+	 */
+	public List<Seller> getSellers();
 	
 	/**
 	 * Updates a {@link Seller}

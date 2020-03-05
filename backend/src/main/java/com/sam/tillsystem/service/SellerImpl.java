@@ -3,6 +3,7 @@ package com.sam.tillsystem.service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -69,6 +70,11 @@ public class SellerImpl extends BaseImpl implements SellerAPI {
 	public boolean removeSeller(int id) {
 		return this.template.update("DELETE FROM seller WHERE id=?", new Object[] { id },
 				new int[] { Types.INTEGER }) > 0;
+	}
+	
+	@Override
+	public List<Seller> getSellers() {
+		return this.template.query("SELECT * FROM seller", sellerMapper);
 	}
 
 }

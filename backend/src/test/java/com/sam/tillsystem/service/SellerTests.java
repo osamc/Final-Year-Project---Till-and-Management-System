@@ -2,10 +2,12 @@ package com.sam.tillsystem.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -46,6 +48,17 @@ public class SellerTests {
 	}
 	
 	@Test
+	public void testGetUsers() {
+		for (int i = 0; i < 10; i++) {
+			service.createSeller("test", "100");
+		}
+		
+		List<Seller> sellers = service.getSellers();
+		
+		assertTrue(sellers.size() == 10);
+	}
+	
+	@Test
 	public void testGetUser() {
 		service.createSeller("test", "1234");
 		Seller fromDb = service.getSeller(1);
@@ -58,6 +71,7 @@ public class SellerTests {
 	@Test
 	public void testGetNonexistent() {
 		Seller s = service.getSeller(1);
+		assertNull(s);
 	}
 	
 	@Test

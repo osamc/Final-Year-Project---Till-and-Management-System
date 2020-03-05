@@ -2,8 +2,6 @@ package com.sam.tillsystem.models.page;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class PageInfo {
 
 	private int infoId;

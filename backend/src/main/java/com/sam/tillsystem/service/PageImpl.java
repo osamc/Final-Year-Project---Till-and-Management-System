@@ -85,13 +85,13 @@ public class PageImpl extends BaseImpl implements PageAPI {
 		return deletePage(page.getInfoId());
 	}
 
-	public PageInfo getLastPage() {
+	private PageInfo getLastPage() {
 		return this.template.query("SELECT * FROM page_info ORDER BY infoid DESC LIMIT 1", infoMapper).stream().findFirst()
 				.orElse(null);
 
 	}
 
-	public List<PageDefinition> getPageDefinition(int pageId) {
+	private List<PageDefinition> getPageDefinition(int pageId) {
 
 		return this.template.query("SELECT * FROM page_def WHERE page_id=?", new Object[] { pageId },
 				new int[] { Types.INTEGER }, new RowMapper<PageDefinition>() {
