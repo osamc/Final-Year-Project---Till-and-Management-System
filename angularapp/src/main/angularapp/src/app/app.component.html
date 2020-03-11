@@ -1,1 +1,33 @@
-<router-outlet></router-outlet>
+<div [ngClass]="isSidebarEnabled ? 'mainShown' : 'mainHidden'">
+    <button class="btn btn-dark" [ngClass]="!isSidebarEnabled ? 'sidebarButtonHidden' : 'sidebarButtonShown'" (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
+
+    <div class="routerOutput">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
+
+
+<!-- Side bar-->
+<div class="container">
+
+
+    <div [ngClass]="isSidebarEnabled ? 'sidebarShown' : 'sidebarHidden'">
+        <button class="btn btn-dark" style="float: right" (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
+
+
+        <div class="navbaritem">
+            <a [routerLink]="['dashboard']" [routerLinkActive]="['active-link']">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
+            </a>
+        </div>
+
+        <div class="navbaritem">
+            <a [routerLink]="['define']" [routerLinkActive]="['active-link']">
+                <i class="fa fa-edit" aria-hidden="true"></i> Definition
+            </a>
+        </div>
+
+
+    </div>
+</div>

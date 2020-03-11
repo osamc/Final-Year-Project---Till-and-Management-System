@@ -2,9 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { InjectionToken, Injector } from '@angular/core';
+
 export const environment = {
   production: false
 };
+
+const BASE_URL = new InjectionToken<string>('BaseUrl');
+const injector = Injector.create({providers: [{provide: BASE_URL, useValue: 'http://localhost:8443'}]});
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TestComponent } from './test/test.component';
-import { Test2Component } from './test2/test2.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DefinitionComponent } from './definition/definition.component';
 
 
-const routes: Routes = [
-{path: '2', component: Test2Component},
-{path: '**', component: TestComponent}];
+const routes: Routes = [{path: "dashboard", component: DashboardComponent}, 
+{path: "define", component: DefinitionComponent},
+{path: "*", redirectTo: 'dashboard', pathMatch: 'full'},
+{path: "", redirectTo: 'dashboard', pathMatch: 'full'}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {useHash: true})],

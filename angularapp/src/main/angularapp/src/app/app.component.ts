@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'test';
+  
+  title = 'test'; 
+
+  public isSidebarEnabled: boolean = true;
+
+  constructor(router: Router) {
+    
+  }
+ 
+  toggleSideBar() {
+    this.isSidebarEnabled = !this.isSidebarEnabled;
+  }
 
 
 }

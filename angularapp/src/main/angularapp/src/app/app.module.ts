@@ -3,19 +3,30 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TestComponent } from './test/test.component';
-import { Test2Component } from './test2/test2.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DefinitionComponent } from './definition/definition.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from '@angular/cdk/layout';
+import { RouterModule } from '@angular/router';
+import { ApiModule } from './openapi';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
-    Test2Component
+    DashboardComponent,
+    DefinitionComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    RouterModule,
+    ApiModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

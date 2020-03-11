@@ -1,0 +1,12 @@
+.dashboard {
+    padding: 2rem;
+    border: 2px solid #000;
+    border-radius: 5px;
+    margin: 25px;
+    box-shadow: 3px 3px;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+}
