@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageAPIService } from '../openapi';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-definition',
@@ -8,12 +9,10 @@ import { PageAPIService } from '../openapi';
 })
 export class DefinitionComponent implements OnInit {
 
-  constructor(private pageService: PageAPIService) { }
+  constructor(private pageService: PageAPIService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.pageService.getPages().subscribe(res => {
-      console.log(res);
-    })
   }
 
 }

@@ -21,14 +21,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/seller")
+@RequestMapping("seller")
 @Tag(name="Seller API", description = "The Seller API for maintaining and creating Users")
 public class SellerController {
 
 	@Autowired
 	SellerImpl sellerService;
 	
-	@PostMapping("/createSeller")
+	@PostMapping("createSeller")
 	@Operation(summary = "Creates a seller", description = "This method creates a Seller to be used within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller created"),
 			@ApiResponse(responseCode = "400", description = "Seller not created") })
@@ -38,7 +38,7 @@ public class SellerController {
 		return new ResponseEntity<>(created, created != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
-	@GetMapping("/getSeller/{id}")
+	@GetMapping("getSeller/{id}")
 	@Operation(summary = "Get Seller by Id", description = "Gets the Seller associated with the given id from the database", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller Found"),
 			@ApiResponse(responseCode = "400", description = "Seller not found") })
@@ -47,14 +47,14 @@ public class SellerController {
 		return new ResponseEntity<>(fromDb, fromDb != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
-	@GetMapping("/getSellers")
+	@GetMapping("getSellers")
 	@Operation(summary = "Gets all Sellers", description = "Returns all Sellers found within the database", responses = {
 			@ApiResponse(responseCode = "200", description = "Sellers list returned")})
 	ResponseEntity<List<Seller>> getSellers() {
 		return new ResponseEntity<>(this.sellerService.getSellers(), HttpStatus.OK);
 	}
 	
-	@PostMapping("/updateSeller")
+	@PostMapping("updateSeller")
 	@Operation(summary = "Updates a Seller", description = "This method Updates a Seller within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller Updates"),
 			@ApiResponse(responseCode = "400", description = "Seller not Updates") })
@@ -64,7 +64,7 @@ public class SellerController {
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
-	@PostMapping("/deleteSeller")
+	@PostMapping("deleteSeller")
 	@Operation(summary = "Deletes a Seller", description = "This method Deletes a Seller within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller deleted"),
 			@ApiResponse(responseCode = "400", description = "Seller not deleted") })

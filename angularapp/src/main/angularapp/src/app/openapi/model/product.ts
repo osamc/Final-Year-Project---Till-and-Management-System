@@ -9,9 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Group } from './group';
 
 export interface Product { 
     id?: number;
+    group?: Group;
     name?: string;
     info?: string;
     price?: number;

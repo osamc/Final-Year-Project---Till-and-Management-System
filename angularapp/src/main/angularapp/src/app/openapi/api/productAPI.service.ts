@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { Group } from '../model/group';
 import { Product } from '../model/product';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -54,6 +55,50 @@ export class ProductAPIService {
         return false;
     }
 
+
+    /**
+     * Creates a new group for products
+     * Creates a new group that a product will be able to be associated with
+     * @param body  The name of the group
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createGroup(body?: string, observe?: 'body', reportProgress?: boolean): Observable<Group>;
+    public createGroup(body?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Group>>;
+    public createGroup(body?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Group>>;
+    public createGroup(body?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            '*/*'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<Group>('post',`${this.basePath}/product/createGroup`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * Creates a product
@@ -100,6 +145,50 @@ export class ProductAPIService {
     }
 
     /**
+     * Deletes a given group
+     * Removes the database entries for a given group.
+     * @param body The group to be deleted
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteGroup(body?: Group, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public deleteGroup(body?: Group, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public deleteGroup(body?: Group, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public deleteGroup(body?: Group, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            '*/*'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/product/deleteGroup`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Deletes a product by Id
      * Deletes the product associated with the given Id from the datbase
      * @param body Product to be deleted
@@ -135,6 +224,53 @@ export class ProductAPIService {
         return this.httpClient.request<boolean>('post',`${this.basePath}/product/deleteProduct`,
             {
                 body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Gets all groups from the database
+     * Gets all groups from within the database, depending on the flag sent, the groups may also contain all their products too.
+     * @param includeProducts Flag indicating if products also wanted
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getGroups(includeProducts: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
+    public getGroups(includeProducts: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
+    public getGroups(includeProducts: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
+    public getGroups(includeProducts: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (includeProducts === null || includeProducts === undefined) {
+            throw new Error('Required parameter includeProducts was null or undefined when calling getGroups.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (includeProducts !== undefined && includeProducts !== null) {
+            queryParameters = queryParameters.set('includeProducts', <any>includeProducts);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Group>>('get',`${this.basePath}/product/getGroups`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -212,6 +348,50 @@ export class ProductAPIService {
 
         return this.httpClient.request<Array<Product>>('get',`${this.basePath}/product/getProducts`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Updates a given group
+     * Updates the database entries for a given group. Currently the only thing to be updated this way is the name
+     * @param body The group to be updated
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateGroup(body?: Group, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public updateGroup(body?: Group, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public updateGroup(body?: Group, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public updateGroup(body?: Group, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            '*/*'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/product/updateGroup`,
+            {
+                body: body,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

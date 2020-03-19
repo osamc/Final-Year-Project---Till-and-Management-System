@@ -1,0 +1,68 @@
+<div class="page">
+
+
+    <form #productForm="ngForm">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Product Name</span>
+                    </div>
+                    <input id="name" name="name" required class="form-control ng-valid" [(ngModel)]="product.name" #name="ngModel" required type="text" class="form-control" placeholder="Product Name">
+                    <div class="input-group-append" *ngIf="name.invalid">
+                        <span class="input-group-text" ngbPopover="The product name is required." triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Price</span>
+                    </div>
+                    <input [(ngModel)]="product.price" type="text" class="form-control" placeholder="price">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="input-group mb-3 col-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Info</span>
+                </div>
+                <textarea class="form-control" aria-label="With textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group mb-3 col-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Image URL</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Image url">
+            </div>
+        </div>
+    </form>
+
+
+
+    <br>
+
+    <div style="text-align: right;">
+        <button type="button" class="btn btn-dark" (click)="createProduct()">Create Product</button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+
+
+
+
+
+</div>

@@ -44,6 +44,21 @@
     	</rollback>
     </changeSet>
     
+        <changeSet author="sam" id="create-group-table">
+    	<createTable tableName="product_group">
+    		<column name="group_id" type="INT" autoIncrement="true">
+    			<constraints unique="true" primaryKey="true" nullable="false"/>
+    		</column>
+    		<column name="group_name" type="VARCHAR">
+    			<constraints unique="false" nullable="false"/>
+    		</column>
+    		<column name="system" type="BOOLEAN">
+    			<constraints nullable="false"/>
+    		</column>
+    	</createTable>
+    </changeSet>
+
+    
     <changeSet author="sam" id="create-product">
     	<createTable tableName="product">
     		<column name="id" type="INT" autoIncrement="true">
@@ -61,10 +76,27 @@
     		<column name="price" type="DECIMAL">
     			<constraints nullable="false"/>
     		</column>
+    		<column name="groupid" type="int">
+    			<constraints nullable="true"/>
+    		</column>
     	</createTable>
     	<rollback>
     		<dropTable tableName="product"/>
     	</rollback>
+    </changeSet>
+    
+    <changeSet author="sam" id="add-group-fk">
+    <addForeignKeyConstraint constraintName="fk_product_group"
+    			baseTableName="product" baseColumnNames="groupid"
+    			referencedTableName="product_group" referencedColumnNames="group_id"
+    			onDelete="SET NULL"/>
+    </changeSet>
+    
+      <changeSet author="sam" id="insert-default-group">
+    	<insert tableName="product_group">
+    		<column name="group_name">No Group</column>
+    		<column name="system">true</column>
+    	</insert>
     </changeSet>
     
     <changeSet author="sam" id="create-pagedef">
@@ -114,5 +146,7 @@
     		</column>
     	</createTable>
     </changeSet>
+    
+
     
 </databaseChangeLog>

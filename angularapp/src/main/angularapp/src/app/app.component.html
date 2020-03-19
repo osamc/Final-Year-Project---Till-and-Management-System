@@ -1,5 +1,5 @@
 <div [ngClass]="isSidebarEnabled ? 'mainShown' : 'mainHidden'">
-    <button class="btn btn-dark" [ngClass]="!isSidebarEnabled ? 'sidebarButtonHidden' : 'sidebarButtonShown'" (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
+    <button class="btn btn-dark" [ngClass]="isSidebarEnabled ? 'sidebarButtonShown' : 'sidebarButtonHidden'" (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
 
     <div class="routerOutput">
         <router-outlet></router-outlet>
@@ -28,6 +28,15 @@
             </a>
         </div>
 
+        <div class="navbaritem">
+            <a [routerLink]="['till']" [routerLinkActive]="['active-link']">
+                <i class="fas fa-piggy-bank"></i> Till
+            </a>
+        </div>
+
 
     </div>
 </div>
+
+
+<app-toaster></app-toaster>

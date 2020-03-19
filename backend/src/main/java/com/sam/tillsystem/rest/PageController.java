@@ -28,7 +28,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/page")
+@RequestMapping("page")
 @Tag(name = "Page API", description = "The Page API is used for creating and maintaining pages within the Application")
 public class PageController {
 
@@ -38,7 +38,7 @@ public class PageController {
 	@Autowired
 	PageDefinitionImpl pageDefService;
 
-	@PostMapping("/createPage")
+	@PostMapping("createPage")
 	@Operation(summary = "Creates a page", description = "This method creates a page to be used within the system.", responses = {
 			@ApiResponse(responseCode = "200", description = "Page created"),
 			@ApiResponse(responseCode = "400", description = "page not created")})
@@ -47,7 +47,7 @@ public class PageController {
 		return new ResponseEntity<>(created, created != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping("/getPage/{id}")
+	@GetMapping("getPage/{id}")
 	@Operation(summary = "Gets a page", description = "Gets a page from a given ID.", responses = {
 			@ApiResponse(responseCode = "200", description = "Page found"),
 			@ApiResponse(responseCode = "404", description = "No page found for given id") })
@@ -56,13 +56,13 @@ public class PageController {
 		return new ResponseEntity<>(page, page != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
-	@GetMapping("/getPages")
+	@GetMapping("getPages")
 	@Operation(summary = "Gets a list of all pages", description = "Gets all pages from db.")
 	ResponseEntity<List<PageInfo>> getPages() {
 		return new ResponseEntity<>(this.pageService.getPages(), HttpStatus.OK);
 	}
 
-	@PostMapping("/updatePage")
+	@PostMapping("updatePage")
 	@Operation(summary = "Updates a page", description = "Updates a page, uses the id the found"
 			+ " within the object to update that record within the database", responses = {
 					@ApiResponse(responseCode = "200", description = "Page found and updated"),
@@ -73,7 +73,7 @@ public class PageController {
 		return new ResponseEntity<Boolean>(success, success ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
-	@DeleteMapping("/deletePage/{id}")
+	@DeleteMapping("deletePage/{id}")
 	@Operation(summary = "Deletes a page", description = "Deletes a page that is associated to a given id", responses = {
 			@ApiResponse(responseCode = "200", description = "Page found and deleted"),
 			@ApiResponse(responseCode = "404", description = "No page found for given id") })
@@ -83,7 +83,7 @@ public class PageController {
 		return new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
-	@PostMapping("/addItemToPage")
+	@PostMapping("addItemToPage")
 	@Operation(summary = "Adds a product to a page", description = "Adds a product to a given page at the coordinates (x,y)", responses = {
 			@ApiResponse(responseCode = "200", description = "Item succesfully added to page"),
 			@ApiResponse(responseCode = "400", description = "Item was not added to page"),
@@ -98,7 +98,7 @@ public class PageController {
 		return new ResponseEntity<Boolean>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@PostMapping("/removeItemFromPage/{x}/{y}")
+	@PostMapping("removeItemFromPage/{x}/{y}")
 	@Operation(summary = "Removes an item from a Page", description = "Removes the product on a given page at the coordinates (x,y)", responses = {
 			@ApiResponse(responseCode = "200", description = "Item succesfully removed from the page"),
 			@ApiResponse(responseCode = "400", description = "Item was not removed to page"),
@@ -112,7 +112,7 @@ public class PageController {
 		return new ResponseEntity<Boolean>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@PostMapping("/clearPage")
+	@PostMapping("clearPage")
 	@Operation(summary = "Removes all items from a Page", description = "Removes the products on a given page", responses = {
 			@ApiResponse(responseCode = "200", description = "Items succesfully removed from the page"),
 			@ApiResponse(responseCode = "400", description = "Items were not removed to page"),

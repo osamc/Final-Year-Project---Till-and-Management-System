@@ -3,6 +3,7 @@ package com.sam.tillsystem.models.product;
 public class Product {
 
 	private int id;
+	private Group group;
 	private String name;
 	private String info;
 	private String imageUrl;
@@ -10,14 +11,10 @@ public class Product {
 	private Double price;
 
 	public Product() {
-
+		this.group = new Group().setId(1);
 	}
 
-	public Product(String name, String image, Double price) {
-		this.name = name;
-		this.imageUrl = image;
-		this.price = price;
-	}
+
 
 	public int getId() {
 		return this.id;
@@ -99,5 +96,15 @@ public class Product {
 
 		return true;
 	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public Product setGroup(Group group) {
+		this.group = group;
+		return this;
+	}
+
 
 }

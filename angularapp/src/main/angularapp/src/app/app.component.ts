@@ -10,7 +10,7 @@ export class AppComponent {
   
   title = 'test'; 
 
-  public isSidebarEnabled: boolean = true;
+  public isSidebarEnabled: boolean = false;
 
   constructor(router: Router) {
     

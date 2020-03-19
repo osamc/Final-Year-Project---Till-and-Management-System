@@ -1,3 +1,4 @@
+export * from './group';
 export * from './pageAdditionRequest';
 export * from './pageDefinition';
 export * from './pageInfo';

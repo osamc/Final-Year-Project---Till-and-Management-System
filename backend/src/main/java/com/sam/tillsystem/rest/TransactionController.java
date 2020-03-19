@@ -22,14 +22,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("transaction")
 @Tag(name = "Transaction API", description = "The transaction API for dealing with transactions")
 public class TransactionController {
 
 	@Autowired
 	TransactionImpl transactionService;
 
-	@PostMapping("/createTransaction")
+	@PostMapping("createTransaction")
 	@Operation(summary = "Creates a Transaction", description = "This method creates a Transaction within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Transaction created"),
 			@ApiResponse(responseCode = "400", description = "Transaction not created") })
@@ -39,7 +39,7 @@ public class TransactionController {
 		return new ResponseEntity<>(created, created != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping("/getTransaction/{id}")
+	@GetMapping("getTransaction/{id}")
 	@Operation(summary = "Get Transaction by Id", description = "Gets the transaction associated with the given id from the database", responses = {
 			@ApiResponse(responseCode = "200", description = "Transaction Found"),
 			@ApiResponse(responseCode = "400", description = "Transaction not found") })
@@ -49,7 +49,7 @@ public class TransactionController {
 		return new ResponseEntity<>(fromDb, fromDb != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@DeleteMapping("/deleteTransaction/{id}")
+	@DeleteMapping("deleteTransaction/{id}")
 	@Operation(summary = "Deletes a transaction by Id", description = "Deletes the transaction associated with the given Id from the datbase", responses = {
 			@ApiResponse(responseCode = "200", description = "Transaction deleted"),
 			@ApiResponse(responseCode = "400", description = "Transaction not deleted") })
@@ -58,7 +58,7 @@ public class TransactionController {
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping("/getTransactions")
+	@GetMapping("getTransactions")
 	@Operation(summary = "Gets all Transactions", description = "Returns all Transactions found within the database", responses = {
 			@ApiResponse(responseCode = "200", description = "Product list returned")})
 	ResponseEntity<List<Transaction>> getTransactions() {
