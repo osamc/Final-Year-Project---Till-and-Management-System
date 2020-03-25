@@ -1,7 +1,7 @@
 <div class="page">
 
     <div class="sticky-top">
-        <button type="button" class="btn btn-dark" style="margin-right: 10px;">Create Group</button>
+        <button type="button" class="btn btn-dark" (click)="createGroup()" style="margin-right: 10px;">Create Group</button>
         <button type="button" class="btn btn-dark" (click)="createProduct()">Create Product</button>
     </div>
 
@@ -16,8 +16,8 @@
                 <th scope="col">Name</th>
                 <th scope="col">System</th>
                 <th scope="col">Product Count</th>
-                <th></th>
-                <th></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,9 +26,8 @@
                 <td>{{group.name}}</td>
                 <td><i class="fas fa-check" *ngIf="group.system"></i></td>
                 <td>{{group.products.length}}</td>
-                <td><i class="far fa-edit" *ngIf="!group.system"></i></td>
-                <td><i class="far fa-trash-alt" *ngIf="!group.system"></i></td>
-
+                <td><button type="button" class="btn btn-dark" (click)="editGroup(group.id)" *ngIf="!group.system"><i class="far fa-edit"></i></button></td>
+                <td><button type="button" class="btn btn-dark" (click)="deleteGroup(group)" *ngIf="!group.system"><i class="far fa-trash-alt"></i></button></td>
             </tr>
         </tbody>
     </table>
@@ -48,6 +47,8 @@
                 <th scope="col">Price</th>
                 <th scope="col">Image</th>
                 <th scope="col">Group</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -56,13 +57,11 @@
                 <td>{{product.name}}</td>
                 <td>{{product.info}}</td>
                 <td>{{product.price}}</td>
-                <td>image?</td>
+                <td>{{product.image}}</td>
                 <td>{{product.group.name}}</td>
-                <td><i class="far fa-edit"></i></td>
-                <td><i class="far fa-trash-alt"></i></td>
+                <td><button type="button" class="btn btn-dark" (click)="editProduct(product.id)"><i class="far fa-edit"></i></button></td>
+                <td><button type="button" class="btn btn-dark" (click)="deleteProduct(product)"><i class="far fa-trash-alt"></i></button></td>
             </tr>
         </tbody>
     </table>
-
-
 </div>

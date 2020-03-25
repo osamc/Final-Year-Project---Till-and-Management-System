@@ -174,5 +174,17 @@ public class ProductImpl extends BaseImpl implements ProductAPI {
 		return groups;
 
 	}
+	
+	@Override
+	public Group getGroup(int id, boolean withProducts) {
+		Group group = this.template.query("SELECT * FROM product_group WHERE group_id=?", new Object[] {id}, new int[] {Types.INTEGER}, groupMapper).stream().findFirst().orElse(null);
+		if (group != null && withProducts) {
+			List<Product> products = this.template.query("SELECT * FROM product LEFT JOIN product_group ON product_group.group_id = product.groupid WHERE groupid=?",
+					new Object[] { group.getId() }, new int[] { Types.INTEGER }, this.productMapper);
+			group.setProducts(products);
+		}
+		
+		return group;
+	}
 
 }

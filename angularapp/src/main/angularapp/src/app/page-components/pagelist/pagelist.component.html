@@ -1,1 +1,34 @@
-<p>pagelist works!</p>
+<div class="page">
+
+    <div class="sticky-top">
+        <button type="button" class="btn btn-dark" (click)="createPage()">Create Page</button>
+    </div>
+
+    <p style="text-align: center; font-size: 30px;">Page</p>
+
+    <br>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">X Rows</th>
+                <th scope="col">Y Rows</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let page of pages">
+                <td>{{page.infoId}}</td>
+                <td>{{page.name}}</td>
+                <td>{{page.xrows}}</td>
+                <td>{{page.yrows}}</td>
+                <td><button type="button" class="btn btn-dark" (click)="editPage(page.infoId)"><i class="far fa-edit"></i></button></td>
+                <td><button type="button" class="btn btn-dark" (click)="deletePage(page)"><i class="far fa-trash-alt"></i></button></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

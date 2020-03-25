@@ -1,0 +1,19 @@
+    .tillView {
+        width: 100%;
+        height: 56.25vh;
+        outline: 1px dashed black;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    
+    .tillRow {
+        display: flex;
+        flex: 1;
+    }
+    
+    .item {
+        outline: 1px dashed red;
+        padding: 0.5rem;
+        flex: 1;
+    }

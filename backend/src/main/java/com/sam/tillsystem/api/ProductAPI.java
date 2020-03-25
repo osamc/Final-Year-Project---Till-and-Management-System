@@ -117,6 +117,14 @@ public interface ProductAPI {
 	 */
 	public List<Group> getGroups(boolean withProducts);
 
+	/**
+	 * Gets a specific group
+	 * @param id the id of the group to be found
+	 * @param withProducts a flag indicating with the products are required with the group
+	 * @return a {@link Group}
+	 */
+	Group getGroup(int id, boolean withProducts);
+
 	
 	
 }

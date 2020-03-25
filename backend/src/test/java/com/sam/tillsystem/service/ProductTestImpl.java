@@ -235,5 +235,15 @@ public class ProductTestImpl {
 		
 		List<Group> after = service.getGroups(true);
 	}
+	
+	@Test
+	public void testGetGroup() {
+		Group group = service.createGroup("new");
 
+		Group fromDb = service.getGroup(group.getId(), false);
+		
+		assertTrue(fromDb != null);
+		assertTrue(fromDb.getName().equals(group.getName()));   
+	}
+	
 }

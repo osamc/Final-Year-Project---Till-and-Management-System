@@ -10,6 +10,8 @@ public class Group {
 	
 	private List<Product> products;
 
+	public Group() {}
+	
 	public int getId() {
 		return id;
 	}

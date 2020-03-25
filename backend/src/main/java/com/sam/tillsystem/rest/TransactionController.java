@@ -29,7 +29,7 @@ public class TransactionController {
 	@Autowired
 	TransactionImpl transactionService;
 
-	@PostMapping("createTransaction")
+	@PostMapping(value = "createTransaction", consumes = "application/json")
 	@Operation(summary = "Creates a Transaction", description = "This method creates a Transaction within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Transaction created"),
 			@ApiResponse(responseCode = "400", description = "Transaction not created") })
@@ -39,7 +39,7 @@ public class TransactionController {
 		return new ResponseEntity<>(created, created != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping("getTransaction/{id}")
+	@GetMapping(value = "getTransaction/{id}", produces = "application/json")
 	@Operation(summary = "Get Transaction by Id", description = "Gets the transaction associated with the given id from the database", responses = {
 			@ApiResponse(responseCode = "200", description = "Transaction Found"),
 			@ApiResponse(responseCode = "400", description = "Transaction not found") })
@@ -49,18 +49,19 @@ public class TransactionController {
 		return new ResponseEntity<>(fromDb, fromDb != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@DeleteMapping("deleteTransaction/{id}")
+	@DeleteMapping(value = "deleteTransaction/{id}", consumes = "application/json")
 	@Operation(summary = "Deletes a transaction by Id", description = "Deletes the transaction associated with the given Id from the datbase", responses = {
 			@ApiResponse(responseCode = "200", description = "Transaction deleted"),
 			@ApiResponse(responseCode = "400", description = "Transaction not deleted") })
-	ResponseEntity<Boolean> deleteTransaction(@PathVariable("id") @Parameter(description = "Transaction to be deleted") int id) {
+	ResponseEntity<Boolean> deleteTransaction(
+			@PathVariable("id") @Parameter(description = "Transaction to be deleted") int id) {
 		Boolean success = this.transactionService.deleteTransaction(id);
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping("getTransactions")
+	@GetMapping(value = "getTransactions", produces = "application/json")
 	@Operation(summary = "Gets all Transactions", description = "Returns all Transactions found within the database", responses = {
-			@ApiResponse(responseCode = "200", description = "Product list returned")})
+			@ApiResponse(responseCode = "200", description = "Product list returned") })
 	ResponseEntity<List<Transaction>> getTransactions() {
 		return new ResponseEntity<>(this.transactionService.getTransactions(), HttpStatus.OK);
 	}

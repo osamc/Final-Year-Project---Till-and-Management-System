@@ -1,1 +1,67 @@
-<p>page works!</p>
+<div class="page">
+
+    <form #pageForm="ngForm">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Name</span>
+                    </div>
+                    <input id="name" name="name" required [(ngModel)]="page.name" #name="ngModel" required type="text" class="form-control" placeholder="Page Name">
+                    <div class="input-group-append" *ngIf="name.invalid">
+                        <span class="input-group-text" ngbPopover="The name is required for a page." triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">X Rows</span>
+                    </div>
+                    <input id="xrows" name="xrows" required [(ngModel)]="page.xrows" (input)="changeRows(xrows.value,yrows.value)" #xrows="ngModel" required type="number" class="form-control" placeholder="Numbers of columns">
+                    <div class="input-group-append" *ngIf="xrows.invalid">
+                        <span class="input-group-text" ngbPopover="The number of rows is required for a page." triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Y Rows</span>
+                    </div>
+                    <input id="yrows" name="yrows" required [(ngModel)]="page.yrows" (input)="changeRows(xrows.value,yrows.value)" #yrows="ngModel" required type="number" class="form-control" placeholder="Numbers of Rows">
+                    <div class="input-group-append" *ngIf="yrows.invalid">
+                        <span class="input-group-text" ngbPopover="The number of rows is required for a page." triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            Product Associations
+
+            <br>
+
+            <div class="tillView">
+                <div *ngFor="let row of productArray; let y = index" class="tillRow">
+                    <div *ngFor="let product of row; let x = index" class="item">
+                        <button class="btn-primary" style="height: 100%;
+                        width: 100%;"> {{product.name}}</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+</div>

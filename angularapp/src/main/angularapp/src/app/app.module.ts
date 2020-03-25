@@ -20,6 +20,7 @@ import { SellerComponent } from './seller-components/seller/seller.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { GroupsComponent } from './product-components/groups/groups.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
     PageComponent,
     SellerlistComponent,
     SellerComponent,
-    ToasterComponent
+    ToasterComponent,
+    GroupsComponent
   ],
   imports: [
     BrowserModule,

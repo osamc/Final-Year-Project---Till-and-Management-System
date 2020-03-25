@@ -82,7 +82,7 @@ export class ProductAPIService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
@@ -126,7 +126,7 @@ export class ProductAPIService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
@@ -170,7 +170,7 @@ export class ProductAPIService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
@@ -214,7 +214,7 @@ export class ProductAPIService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
@@ -224,6 +224,58 @@ export class ProductAPIService {
         return this.httpClient.request<boolean>('post',`${this.basePath}/product/deleteProduct`,
             {
                 body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Gets a group from the database
+     * Gets a group from within the database, depending on the flag sent, the groups may also contain all their products too.
+     * @param id Id of group to find
+     * @param includeProducts Flag indicating if products also wanted
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getGroup(id: number, includeProducts: boolean, observe?: 'body', reportProgress?: boolean): Observable<Group>;
+    public getGroup(id: number, includeProducts: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Group>>;
+    public getGroup(id: number, includeProducts: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Group>>;
+    public getGroup(id: number, includeProducts: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getGroup.');
+        }
+
+        if (includeProducts === null || includeProducts === undefined) {
+            throw new Error('Required parameter includeProducts was null or undefined when calling getGroup.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (includeProducts !== undefined && includeProducts !== null) {
+            queryParameters = queryParameters.set('includeProducts', <any>includeProducts);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Group>('get',`${this.basePath}/product/getGroup/${encodeURIComponent(String(id))}`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -257,7 +309,7 @@ export class ProductAPIService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -299,7 +351,7 @@ export class ProductAPIService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -335,7 +387,7 @@ export class ProductAPIService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -382,7 +434,7 @@ export class ProductAPIService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
@@ -426,7 +478,7 @@ export class ProductAPIService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            '*/*'
+            'application/json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {

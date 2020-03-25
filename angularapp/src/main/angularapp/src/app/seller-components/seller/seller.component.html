@@ -1,1 +1,44 @@
-<p>seller works!</p>
+<div class="page">
+
+    <form #sellerForm="ngForm">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Name</span>
+                    </div>
+                    <input id="name" name="name" required [(ngModel)]="seller.name" #name="ngModel" required type="text" class="form-control" placeholder="Display Name">
+                    <div class="input-group-append" *ngIf="name.invalid">
+                        <span class="input-group-text" ngbPopover="The name is required for a seller." triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Login Code</span>
+                    </div>
+                    <input id="login" name="login" required [(ngModel)]="seller.login" #login="ngModel" required type="text" class="form-control" pattern="^[0-9]*$" placeholder="Login Code">
+                    <div class="input-group-append" *ngIf="login.invalid">
+                        <span class="input-group-text" ngbPopover="The login code is required only consisting of numbers" triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="text-align: right;">
+            <button type="button" class="btn btn-dark" (click)="createSeller()" style="margin-right: 10px;" [disabled]="sellerForm.invalid" *ngIf="!isEdit">Create Seller</button>
+            <button type="button" class="btn btn-dark" (click)="saveChanges()" style="margin-right: 10px;" [disabled]="sellerForm.invalid" *ngIf="isEdit">Save Seller</button>
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        </div>
+
+
+    </form>
+
+</div>

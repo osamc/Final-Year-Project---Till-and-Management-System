@@ -15,7 +15,7 @@ export interface PageInfo {
     infoId?: number;
     name?: string;
     contents?: PageInfo;
-    pageDefinitions?: Array<PageDefinition>;
     xrows?: number;
     yrows?: number;
+    pageDefinitions?: Array<PageDefinition>;
 }

@@ -9,7 +9,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Product Name</span>
                     </div>
-                    <input id="name" name="name" required class="form-control ng-valid" [(ngModel)]="product.name" #name="ngModel" required type="text" class="form-control" placeholder="Product Name">
+                    <input id="name" name="name" required [(ngModel)]="product.name" #name="ngModel" required type="text" class="form-control" placeholder="Product Name">
                     <div class="input-group-append" *ngIf="name.invalid">
                         <span class="input-group-text" ngbPopover="The product name is required." triggers="mouseenter:mouseleave">
                             <i class="fas fa-exclamation-triangle"></i>
@@ -27,7 +27,12 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Price</span>
                     </div>
-                    <input [(ngModel)]="product.price" type="text" class="form-control" placeholder="price">
+                    <input id="price" name="price" [(ngModel)]="product.price" type="text" placeholder="price" #price="ngModel" required class="form-control" pattern="^\d{0,8}(\.\d{1,2})?$">
+                    <div class="input-group-append" *ngIf="price.invalid">
+                        <span class="input-group-text" ngbPopover="The product price is required." triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -38,7 +43,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Info</span>
                 </div>
-                <textarea class="form-control" aria-label="With textarea"></textarea>
+                <textarea class="form-control" id="info" name="info" [(ngModel)]="product.info" #info="ngModel"></textarea>
             </div>
         </div>
 
@@ -47,7 +52,23 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Image URL</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Image url">
+                <input type="text" class="form-control" placeholder="Image URL, may be left empty." id="image" name="image" [(ngModel)]="product.image" #image="ngModel" pattern="(^$|http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)">
+                <div class="input-group-append" *ngIf="image.invalid">
+                    <span class="input-group-text" ngbPopover="The Image url must be in the form of an image url or empty." triggers="mouseenter:mouseleave">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group mb-3 col-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Group</span>
+                </div>
+                <select class="form-control" id="group" #group="ngModel" name="group" [(ngModel)]="selectedGroupId">
+                    <option *ngFor="let group of groups" [(value)]="group.id">{{group.name}}</option>
+                  </select>
             </div>
         </div>
     </form>
@@ -57,7 +78,8 @@
     <br>
 
     <div style="text-align: right;">
-        <button type="button" class="btn btn-dark" (click)="createProduct()">Create Product</button>
+        <button type="button" class="btn btn-dark" (click)="createProduct()" style="margin-right: 10px;" [disabled]="productForm.invalid" *ngIf="!isEdit">Create Product</button>
+        <button type="button" class="btn btn-dark" (click)="saveChanges()" style="margin-right: 10px;" [disabled]="productForm.invalid" *ngIf="isEdit">Save Product</button>
         <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
     </div>
 
