@@ -19,8 +19,9 @@ import { SellerlistComponent } from './seller-components/sellerlist/sellerlist.c
 import { SellerComponent } from './seller-components/seller/seller.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPopoverModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { GroupsComponent } from './product-components/groups/groups.component';
+import { TillbuttonComponent } from './tillbutton/tillbutton.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { GroupsComponent } from './product-components/groups/groups.component';
     SellerlistComponent,
     SellerComponent,
     ToasterComponent,
-    GroupsComponent
+    GroupsComponent,
+    TillbuttonComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { GroupsComponent } from './product-components/groups/groups.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbPopoverModule
+    NgbPopoverModule,
+    NgbModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

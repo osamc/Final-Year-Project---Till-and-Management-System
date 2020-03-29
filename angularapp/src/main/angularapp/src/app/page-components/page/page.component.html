@@ -54,8 +54,11 @@
             <div class="tillView">
                 <div *ngFor="let row of productArray; let y = index" class="tillRow">
                     <div *ngFor="let product of row; let x = index" class="item">
-                        <button class="btn-primary" style="height: 100%;
-                        width: 100%;"> {{product.name}}</button>
+                        <div *ngIf="product" style="height: 100%;">
+                            <button class="btn btn-dark " style="z-index: 1; position: absolute; " (click)="removeItem(x,y)">X</button>
+                            <app-tillbutton style="height: 100%; " [product]="product " [creationMode]="true "></app-tillbutton>
+                        </div>
+                        <button *ngIf="!product" class="btn-primary " style="height: 100%; width: 100%; " (click)="openProductAssociationModal(content, x, y) "><i class="fas fa-plus "></i></button>
                     </div>
                 </div>
             </div>
@@ -65,3 +68,40 @@
 
 
 </div>
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-basic-title ">Product Association</h4>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss() ">
+        <span aria-hidden="true ">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body ">
+        <form>
+            <div class="form-group ">
+                <label for="group ">Product Group</label>
+
+                <div class="input-group ">
+                    <select id="group " class="form-control " #groupSelector [(ngModel)]="selectedGroup " name="selectedGroup " (ngModelChange)="groupSelected() ">
+                        <option *ngFor="let group of groups " [ngValue]="group ">{{group.name}}</option>
+                    </select>
+                </div>
+
+
+
+                <label for="product ">Product</label>
+                <div class="input-group ">
+                    <select id="product " class="form-control " #product [(ngModel)]="selectedProduct " name="selectedProduct ">
+                        <option *ngFor="let product of selectedGroup.products " [ngValue]="product ">{{product.name}}</option>
+                    </select>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " [disabled]="selectedGroup.products.length==0 || selectedProduct=={ } " (click)="modal.close( 'save') ">Save</button>
+    </div>
+</ng-template>
