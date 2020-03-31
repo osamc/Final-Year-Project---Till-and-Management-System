@@ -15,17 +15,25 @@ export class PagelistComponent implements OnInit {
     private pageService: PageAPIService) { }
 
   ngOnInit() {
+   this.loadList();
+  }
+
+  loadList() {
     this.pageService.getPages().subscribe(res => {
       this.pages = res;
     });
   }
 
   deletePage(page: PageInfo) {
-
+    this.pageService.deletePage(page.infoId).subscribe(res => {
+      if (res) {
+        this.loadList();
+      }
+    });
   }
 
   editPage(id: any) {
-
+    this.router.navigateByUrl("/define/page/edit/" + id);
   }
 
   createPage() {

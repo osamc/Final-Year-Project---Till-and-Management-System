@@ -30,7 +30,7 @@ public class PageImpl extends BaseImpl implements PageAPI {
 			toReturn.setName(rs.getString("name"));
 			toReturn.setXRows(rs.getInt("xrows"));
 			toReturn.setYRows(rs.getInt("yrows"));
-			toReturn.setContents(getPageDefinition(toReturn.getInfoId()));
+			toReturn.setProductAssociations(getPageDefinition(toReturn.getInfoId()));
 			return toReturn;
 		}
 

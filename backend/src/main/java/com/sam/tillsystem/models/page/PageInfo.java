@@ -12,7 +12,7 @@ public class PageInfo {
 
 	private int yRows;
 	
-	private List<PageDefinition> contents;
+	private List<PageDefinition> productAssociations;
 	
 	public int getInfoId() {
 		return this.infoId;
@@ -50,12 +50,12 @@ public class PageInfo {
 		return this;
 	}
 	
-	public List<PageDefinition> getPageDefinitions() {
-		return this.contents;
+	public List<PageDefinition> getProductAssociations() {
+		return this.productAssociations;
 	}
 	
-	public PageInfo setContents(List<PageDefinition> content) {
-		this.contents = content;
+	public PageInfo setProductAssociations(List<PageDefinition> productAssociations) {
+		this.productAssociations = productAssociations;
 		return this;
 	}	
 	

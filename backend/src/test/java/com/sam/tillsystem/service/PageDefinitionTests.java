@@ -152,7 +152,7 @@ public class PageDefinitionTests {
 		service.addItemToPage(product.getId(), page.getInfoId(), 3, 3);
 		
 		PageInfo fromDB = pageService.getPage(page.getInfoId());
-		PageDefinition def = fromDB.getPageDefinitions().get(0);
+		PageDefinition def = fromDB.getProductAssociations().get(0);
 		assertTrue(def.getX() == 3);
 		assertTrue(def.getY() == 3);
 		assertTrue(def.getProduct().getId() == product.getId());

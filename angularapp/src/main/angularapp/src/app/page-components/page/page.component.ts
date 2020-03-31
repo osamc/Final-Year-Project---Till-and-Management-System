@@ -4,6 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToasterService, ToastType } from 'src/app/toaster/toaster.service';
+import { isObject } from 'util';
 
 @Component({
   selector: 'app-page',
@@ -22,7 +23,7 @@ export class PageComponent implements OnInit {
   selectedProduct: Product = {};
 
   //the page definition
-  page: PageInfo = { xrows: 2, yrows: 2, pageDefinitions: [] };
+  page: PageInfo = { xrows: 2, yrows: 2, productAssociations: [] };
 
   productArray: any[] = [[]];
 
@@ -37,7 +38,25 @@ export class PageComponent implements OnInit {
       this.groups = res;
       this.selectedGroup = this.groups[0];
     });
-    this.changeRows(2, 2)
+
+    if (this.router.url.includes("define/page/edit")) {
+      this.ressurect(this.router.url.split("/").slice(-1)[0] );
+    } else {
+      this.changeRows(2, 2)
+    }
+
+  }
+
+  ressurect(id: any) {
+    this.pageService.getPage(id).subscribe(res => {
+      this.isEdit = true;
+      this.page = res;
+      this.changeRows(this.page.xrows, this.page.yrows);
+      this.page.productAssociations.forEach(association => {
+        this.productArray[association.y][association.x] = association.product;
+      })
+
+    })
   }
 
   openProductAssociationModal(modal: any, x: any, y: any) {
@@ -55,17 +74,11 @@ export class PageComponent implements OnInit {
   }
 
   removeItem(x: any, y: any) {
-    if (this.isEdit) {
-      this.pageService.removeItemFromPage(x, y).subscribe(res => {
-        this.toaster.createToast("Item removed from page", ToastType.SUCCESS);
-      }, err => {
-        this.toaster.createToast(err, ToastType.DANGER);
-      });
-    }
     this.productArray[y][x] = null;
   }
 
   changeRows(x: any, y: any) {
+
     this.page.xrows = x != null ? x : 1;
     this.page.yrows = y != null ? y : 1;
 
@@ -87,27 +100,40 @@ export class PageComponent implements OnInit {
     }
   }
 
-  savePage() {
-    this.pageService.createPage(this.page).subscribe(res => {
+  createDefs() {
 
-      let assocationObservables = [];
-
-      for(let i = 0; i < this.productArray.length; i++) {
-        for(let j = 0; j < this.productArray[i].length; j++) {
-          if (this.productArray[i][j] !== null) {
-              assocationObservables.push(this.pageService.addItemToPage({page: res, x: j, y: i, product: this.productArray[i][j]}));
-          }
+    this.page.productAssociations = [];
+    
+    for(let i = 0; i < this.productArray.length; i++) {
+      for (let j = 0; j < this.productArray[i].length; j++) {
+        if (this.productArray[i][j] != null) {
+          this.page.productAssociations.push({product: this.productArray[i][j], x: j, y: i})
         }
       }
+    }
+  }
 
-      let assocationObservable = forkJoin(assocationObservables);
 
-      assocationObservable.subscribe(res => {
+
+  savePage() {
+
+    this.createDefs();
+
+    this.pageService.updatePage(this.page).subscribe(res => {
+      if (res) {
         this.router.navigateByUrl('define/page/list');
-      }, err => {
-        this.toaster.createToast(err, ToastType.DANGER);
-      });
+      }
+    });
+  }
 
+  createPage() {
+
+    this.createDefs();
+
+    this.pageService.createPage(this.page).subscribe(res => {
+      if (res) {
+        this.router.navigateByUrl('define/page/list');
+      }
     });
   }
 

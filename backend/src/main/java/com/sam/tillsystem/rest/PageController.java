@@ -17,6 +17,7 @@ import com.sam.tillesystem.exceptions.CoordinatesOutOfRangeException;
 import com.sam.tillesystem.exceptions.PageInfoNotFoundException;
 import com.sam.tillesystem.exceptions.ProductAlreadyExistsException;
 import com.sam.tillesystem.exceptions.ProductNotFoundException;
+import com.sam.tillsystem.models.page.PageDefinition;
 import com.sam.tillsystem.models.page.PageInfo;
 import com.sam.tillsystem.models.requests.PageAdditionRequest;
 import com.sam.tillsystem.service.PageDefinitionImpl;
@@ -42,9 +43,30 @@ public class PageController {
 	@Operation(summary = "Creates a page", description = "This method creates a page to be used within the system.", responses = {
 			@ApiResponse(responseCode = "200", description = "Page created"),
 			@ApiResponse(responseCode = "400", description = "page not created") })
-	ResponseEntity<PageInfo> createPage(@RequestBody @Parameter(description = "The page to be created") PageInfo page) {
-		PageInfo created = this.pageService.createPage(page);
-		return new ResponseEntity<>(created, created != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	ResponseEntity<PageInfo> createPage(@RequestBody @Parameter(description = "The page to be created") PageInfo page)
+			throws PageInfoNotFoundException, ProductNotFoundException, CoordinatesOutOfRangeException,
+			ProductAlreadyExistsException {
+
+		PageInfo created = null;
+
+		try {
+			created = this.pageService.createPage(page);
+			List<PageDefinition> defs = page.getProductAssociations();
+			for (int i = 0; i < defs.size(); i++) {
+				PageDefinition def = defs.get(i);
+				this.pageDefService.addItemToPage(def.getProduct(), created, def.getX(), def.getY());
+			}
+
+			return new ResponseEntity<>(created, created != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+
+			if (created != null) {
+				this.pageService.deletePage(created);
+			}
+
+			throw e;
+		}
+
 	}
 
 	@GetMapping(value = "getPage/{id}", produces = "application/json")
@@ -68,12 +90,24 @@ public class PageController {
 					@ApiResponse(responseCode = "200", description = "Page found and updated"),
 					@ApiResponse(responseCode = "404", description = "No page found for given id") })
 	ResponseEntity<Boolean> updatePage(
-			@RequestBody @Parameter(description = "The page to be updated") PageInfo toUpdate) {
+			@RequestBody @Parameter(description = "The page to be updated") PageInfo toUpdate)
+			throws PageInfoNotFoundException, ProductNotFoundException, CoordinatesOutOfRangeException,
+			ProductAlreadyExistsException {
 		Boolean success = this.pageService.updatePage(toUpdate) > 0;
+
+		if (success) {
+			this.pageDefService.clearPage(toUpdate);
+			List<PageDefinition> defs = toUpdate.getProductAssociations();
+			for (int i = 0; i < defs.size(); i++) {
+				PageDefinition def = defs.get(i);
+				this.pageDefService.addItemToPage(def.getProduct(), toUpdate, def.getX(), def.getY());
+			}
+		}
+
 		return new ResponseEntity<Boolean>(success, success ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
-	@DeleteMapping(value = "deletePage/{id}", consumes = "application/json")
+	@DeleteMapping(value = "deletePage/{id}")
 	@Operation(summary = "Deletes a page", description = "Deletes a page that is associated to a given id", responses = {
 			@ApiResponse(responseCode = "200", description = "Page found and deleted"),
 			@ApiResponse(responseCode = "404", description = "No page found for given id") })
