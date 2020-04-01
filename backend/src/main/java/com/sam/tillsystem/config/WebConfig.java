@@ -1,4 +1,5 @@
 package com.sam.tillsystem.config;
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.format.FormatterRegistry;
@@ -25,110 +26,107 @@ import java.util.List;
 
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/")
-                .resourceChain(true)
-                .addResolver(new PathResourceResolver() {
-                    @Override
-                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
-                        Resource requestedResource = location.createRelative(resourcePath);
-                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
-                                : new ClassPathResource("/static/index.html");
-                    }
-                });
-    }
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").resourceChain(true)
+				.addResolver(new PathResourceResolver() {
+					@Override
+					protected Resource getResource(String resourcePath, Resource location) throws IOException {
+						Resource requestedResource = location.createRelative(resourcePath);
+						return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
+								: new ClassPathResource("/static/index.html");
+					}
+				});
+	}
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

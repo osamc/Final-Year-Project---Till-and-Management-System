@@ -1,0 +1,54 @@
+.grid-container {
+    position: absolute;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 0.75fr 1fr 1fr 0.5fr;
+    grid-template-rows: 1fr 0.5fr;
+    gap: 1px 1px;
+    grid-template-areas: "receiptView tillView tillView pageNavigation" "userInput userInput userInput userInput";
+}
+
+.receiptView {
+    grid-area: receiptView;
+    overflow: auto;
+    width: 100%
+}
+
+.tillView {
+    grid-area: tillView;
+    display: flex;
+}
+
+.pageNavigation {
+    grid-area: pageNavigation;
+    display: flex;
+}
+
+.userInput {
+    grid-area: userInput;
+    display: flex;
+}
+
+div {
+    outline: 1px solid red;
+}
+
+.tillView {
+    width: 100%;
+    outline: 1px dashed black;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tillRow {
+    display: flex;
+    flex: 1;
+}
+
+.item {
+    outline: 1px dashed red;
+    padding: 0.5rem;
+    flex: 1;
+}

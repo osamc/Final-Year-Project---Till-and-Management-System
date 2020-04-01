@@ -1,0 +1,11 @@
+.total {
+    font-size: xx-large;
+    font-weight: 800;
+    height: 10%;
+    margin-left: 1rem;
+}
+
+.tableContainer {
+    height: 90%;
+    overflow: auto;
+}

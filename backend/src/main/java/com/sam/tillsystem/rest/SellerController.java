@@ -71,5 +71,15 @@ public class SellerController {
 		Boolean success = this.sellerService.removeSeller(seller);
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
-
+	
+	@PostMapping(value = "login", consumes = "application/json")
+	@Operation(summary = "Allows a seller to login", description = "This method takes a login code and checks if there is an associated seller, if so, the active seller is returned", 
+		responses = {
+			@ApiResponse(responseCode = "200", description = "Seller found and returned"),
+			@ApiResponse(responseCode = "400", description = "Seller not found") })
+	ResponseEntity<Seller> login(@RequestBody @Parameter(description = "Seller code to look up") String code) {
+		Seller seller = this.sellerService.login(code);
+		return new ResponseEntity<>(seller, seller != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	
 }

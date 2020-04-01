@@ -14,7 +14,7 @@ import { PageDefinition } from './pageDefinition';
 export interface PageInfo { 
     infoId?: number;
     name?: string;
+    productAssociations?: Array<PageDefinition>;
     xrows?: number;
     yrows?: number;
-    productAssociations?: Array<PageDefinition>;
 }

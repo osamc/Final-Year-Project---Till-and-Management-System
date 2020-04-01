@@ -97,4 +97,15 @@ public class SellerTests {
 		assertTrue(fromDb == null);
 	}
 	
+	@Test
+	public void loginTest() {
+		service.createSeller("test", "1234");
+		Seller fromDb = service.login("1234");
+		Seller none = service.login("432890348");
+		
+		assertTrue(none == null);
+		assertTrue(fromDb.getName().equals("test"));
+		
+	}
+	
 }

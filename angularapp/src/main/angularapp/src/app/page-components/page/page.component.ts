@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToasterService, ToastType } from 'src/app/toaster/toaster.service';
 import { isObject } from 'util';
+import { SellerService } from 'src/app/seller.service';
 
 @Component({
   selector: 'app-page',
@@ -31,7 +32,12 @@ export class PageComponent implements OnInit {
     private productService: ProductAPIService,
     private pageService: PageAPIService,
     private router: Router,
-    private toaster: ToasterService) { }
+    private toaster: ToasterService,
+    private sellerService: SellerService) { }
+
+    changeUser(id: any) {
+      this.sellerService.login(id);
+    }
 
   ngOnInit() {
     this.productService.getGroups(true).subscribe(res => {
@@ -112,8 +118,6 @@ export class PageComponent implements OnInit {
       }
     }
   }
-
-
 
   savePage() {
 

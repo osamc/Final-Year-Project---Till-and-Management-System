@@ -1,0 +1,25 @@
+<div class="grid-container">
+    <div class="receiptView">
+        <app-receipt-view id="receiptView"></app-receipt-view>
+    </div>
+
+
+    <div class="tillView">
+        <div *ngFor="let row of productArray; let y = index" class="tillRow">
+            <div *ngFor="let product of row; let x = index" class="item">
+                <div *ngIf="product" style="height: 100%;">
+                    <app-tillbutton style="height: 100%; " [product]="product" [creationMode]="false"></app-tillbutton>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pageNavigation">
+        nav
+    </div>
+
+    <div class="userInput">
+        input
+    </div>
+
+</div>

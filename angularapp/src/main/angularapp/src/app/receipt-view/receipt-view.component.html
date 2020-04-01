@@ -1,0 +1,24 @@
+<!-- <table class="table table-striped">
+    <tr *ngFor="let transaction of receiptService.activeTransactions">
+        <td>{{transaction.product.name}}</td>
+        <td>{{transaction.quantity}}x</td>
+        <td>£{{transaction.price}}</td>
+    </tr>
+</table>
+
+
+ -->
+
+<div class="tableContainer" id="tableContainer">
+    <table class="table table-striped">
+        <tr *ngFor="let transaction of receiptService.activeTransactions; let i = index">
+            <td>{{transaction.product.name}}</td>
+            <td>{{transaction.quantity}}x</td>
+            <td>£{{transaction.price}}</td>
+            <button type="button" class="btn btn-dark" (click)="remove(i)">-</button>
+        </tr>
+    </table>
+</div>
+
+
+<div class="total">Total: £{{receiptService.runningTotal}}</div>

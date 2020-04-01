@@ -5,11 +5,9 @@
 import { InjectionToken, Injector } from '@angular/core';
 
 export const environment = {
-  production: false
+  production: false,
+  basePath: 'http://localhost:8443'
 };
-
-const BASE_URL = new InjectionToken<string>('BaseUrl');
-const injector = Injector.create({providers: [{provide: BASE_URL, useValue: 'http://localhost:8443'}]});
 
 /*
  * For easier debugging in development mode, you can import the following file

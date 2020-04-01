@@ -56,7 +56,7 @@
                     <div *ngFor="let product of row; let x = index" class="item">
                         <div *ngIf="product" style="height: 100%;">
                             <button class="btn btn-dark " style="z-index: 1; position: absolute; " (click)="removeItem(x,y)">X</button>
-                            <app-tillbutton style="height: 100%; " [product]="product " [creationMode]="true "></app-tillbutton>
+                            <app-tillbutton style="height: 100%; " [product]="product " [creationMode]="false"></app-tillbutton>
                         </div>
                         <button *ngIf="!product" class="btn-primary " style="height: 100%; width: 100%; " (click)="openProductAssociationModal(content, x, y) "><i class="fas fa-plus "></i></button>
                     </div>
@@ -68,9 +68,14 @@
 
     <br>
 
+    <div>
+        <input #input>
+        <button type="button" class="btn btn-dark" (click)="changeUser(input.value)" style="margin-right: 10px;">Change user</button>
+    </div>
+
     <div style="text-align: right;">
-        <button type="button" class="btn btn-dark" (click)="createPage()" style="margin-right: 10px;" [disabled]="pageForm.invalid" *ngIf="!isEdit">Create Product</button>
-        <button type="button" class="btn btn-dark" (click)="savePage()" style="margin-right: 10px;" [disabled]="pageForm.invalid" *ngIf="isEdit">Save Product</button>
+        <button type="button" class="btn btn-dark" (click)="createPage()" style="margin-right: 10px;" [disabled]="pageForm.invalid" *ngIf="!isEdit">Create Page</button>
+        <button type="button" class="btn btn-dark" (click)="savePage()" style="margin-right: 10px;" [disabled]="pageForm.invalid" *ngIf="isEdit">Save Page</button>
         <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
     </div>
 

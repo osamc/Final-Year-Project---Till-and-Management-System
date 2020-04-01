@@ -35,8 +35,8 @@ public class SellerImpl extends BaseImpl implements SellerAPI {
 	};
 
 	private Seller getLastSeller() {
-		return this.template.query("SELECT * FROM seller ORDER BY id DESC LIMIT 1", this.sellerMapper).stream().findFirst()
-				.orElse(null);
+		return this.template.query("SELECT * FROM seller ORDER BY id DESC LIMIT 1", this.sellerMapper).stream()
+				.findFirst().orElse(null);
 	}
 
 	@Override
@@ -71,10 +71,17 @@ public class SellerImpl extends BaseImpl implements SellerAPI {
 		return this.template.update("DELETE FROM seller WHERE id=?", new Object[] { id },
 				new int[] { Types.INTEGER }) > 0;
 	}
-	
+
 	@Override
 	public List<Seller> getSellers() {
 		return this.template.query("SELECT * FROM seller", sellerMapper);
+	}
+
+	@Override
+	public Seller login(String loginCode) {
+		return this.template
+				.query("SELECT * FROM seller WHERE login_code=?", new Object[] {loginCode}, new int[] {Types.VARCHAR}, sellerMapper).stream()
+				.findFirst().orElse(null);
 	}
 
 }

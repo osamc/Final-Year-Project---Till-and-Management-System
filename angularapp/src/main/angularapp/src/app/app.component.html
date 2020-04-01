@@ -1,5 +1,5 @@
-<div [ngClass]="isSidebarEnabled ? 'mainShown' : 'mainHidden'">
-    <button class="btn btn-dark" [ngClass]="isSidebarEnabled ? 'sidebarButtonShown' : 'sidebarButtonHidden'" (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
+<div [ngClass]="sidebar.isSidebarEnabled ? 'mainShown' : 'mainHidden'">
+    <button class="btn btn-dark" [ngClass]="sidebar.burgerIconHidden ? 'sidebarButtonShown' : 'sidebarButtonHidden'" (click)="sidebar.toggleSideBar()"><i class="fas fa-bars"></i></button>
 
     <div class="routerOutput">
         <router-outlet></router-outlet>
@@ -11,9 +11,8 @@
 <!-- Side bar-->
 <div class="container">
 
-
-    <div [ngClass]="isSidebarEnabled ? 'sidebarShown' : 'sidebarHidden'">
-        <button class="btn btn-dark" style="float: right" (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
+    <div [ngClass]="sidebar.isSidebarEnabled ? 'sidebarShown' : 'sidebarHidden'">
+        <button class="btn btn-dark" style="float: right" (click)="sidebar.toggleSideBar()"><i class="fas fa-bars"></i></button>
 
 
         <div class="navbaritem">

@@ -9,9 +9,9 @@ import { DefinitionComponent } from './definition/definition.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RouterModule } from '@angular/router';
-import { ApiModule } from './openapi';
+import { ApiModule, BASE_PATH, Configuration } from './openapi';
 import { HttpClientModule } from '@angular/common/http';
-import {ProductListComponent} from './product-components/product-list/product-list.component';
+import { ProductListComponent } from './product-components/product-list/product-list.component';
 import { ProductComponent } from './product-components/product/product.component';
 import { PagelistComponent } from './page-components/pagelist/pagelist.component';
 import { PageComponent } from './page-components/page/page.component';
@@ -22,6 +22,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPopoverModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { GroupsComponent } from './product-components/groups/groups.component';
 import { TillbuttonComponent } from './tillbutton/tillbutton.component';
+import { ReceiptService } from './receipt.service';
+import { TillComponent } from './till/till.component';
+import { ReceiptViewComponent } from './receipt-view/receipt-view.component';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -37,7 +41,9 @@ import { TillbuttonComponent } from './tillbutton/tillbutton.component';
     SellerComponent,
     ToasterComponent,
     GroupsComponent,
-    TillbuttonComponent
+    TillbuttonComponent,
+    TillComponent,
+    ReceiptViewComponent
   ],
   imports: [
     BrowserModule,
@@ -45,14 +51,20 @@ import { TillbuttonComponent } from './tillbutton/tillbutton.component';
     BrowserAnimationsModule,
     LayoutModule,
     RouterModule,
-    ApiModule,
+    ApiModule.forRoot(() => {
+      return new Configuration({
+        basePath: environment.basePath
+      });
+    }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     NgbPopoverModule,
     NgbModalModule
   ],
-  providers: [],
+  providers: [ReceiptService, {
+    provide: BASE_PATH, useValue: environment.basePath
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

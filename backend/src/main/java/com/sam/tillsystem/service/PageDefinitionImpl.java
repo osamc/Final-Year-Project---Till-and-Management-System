@@ -56,8 +56,8 @@ public class PageDefinitionImpl extends BaseImpl implements PageDefinitionAPI {
 							+ (page.getXRows() - 1) + " and y: 0 - " + (page.getYRows() - 1));
 		}
 
-		int existsAlready = this.template.queryForObject("SELECT COUNT(*) FROM page_def WHERE x=? AND y=?",
-				new Object[] { x, y }, new int[] { Types.INTEGER, Types.INTEGER }, Integer.class);
+		int existsAlready = this.template.queryForObject("SELECT COUNT(*) FROM page_def WHERE x=? AND y=? AND page_id=?",
+				new Object[] { x, y, pageId}, new int[] { Types.INTEGER, Types.INTEGER, Types.INTEGER }, Integer.class);
 
 		if (existsAlready > 0) {
 			throw new ProductAlreadyExistsException(

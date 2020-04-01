@@ -47,5 +47,12 @@ public interface SellerAPI {
 	 */
 	public boolean removeSeller(int id);
 	
+	/**
+	 * Takes the login code and looks up a seller to see if they have an account on the system
+	 * @param loginCode the login code of the {@link Seller}
+	 * @return the found {@link Seller}
+	 */
+	public Seller login(String loginCode);
+	
 	
 }
