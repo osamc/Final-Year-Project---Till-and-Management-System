@@ -1,0 +1,5 @@
+<div class="quantityContainer">
+    <div *ngFor="let button of quantityButtons" class="quantityButton">
+        <button class="btn btn-dark fillDiv btnRemoveRadius" (click)="addChar(button)"> {{button}}</button>
+    </div>
+</div>

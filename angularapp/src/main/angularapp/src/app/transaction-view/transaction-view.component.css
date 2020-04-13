@@ -1,0 +1,32 @@
+.transactionInfo {
+    font-size: x-large;
+    position: relative;
+}
+
+.transactionView {
+    margin-top: 4rem;
+}
+
+.transNav {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    height: 4rem;
+}
+
+.back {
+    width: 20%;
+    background-color: blue;
+    height: 100%;
+}
+
+.navspacing {
+    width: 60%;
+    height: 100%;
+}
+
+.forward {
+    width: 20%;
+    background-color: blue;
+    height: 100%;
+}

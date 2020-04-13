@@ -7,12 +7,14 @@
     grid-template-rows: 1fr 0.5fr;
     gap: 1px 1px;
     grid-template-areas: "receiptView tillView tillView pageNavigation" "userInput userInput userInput userInput";
+    overflow: hidden;
 }
 
 .receiptView {
     grid-area: receiptView;
     overflow: auto;
-    width: 100%
+    width: 100%;
+    border: 1px solid #23272b;
 }
 
 .tillView {
@@ -23,6 +25,23 @@
 .pageNavigation {
     grid-area: pageNavigation;
     display: flex;
+    border: 1px solid #23272b;
+}
+
+.navigationButton {
+    height: 15%;
+    margin: 10px;
+}
+
+.navButtons {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.navScroll {
+    height: 10%;
+    background-color: aqua;
 }
 
 .userInput {
@@ -30,13 +49,8 @@
     display: flex;
 }
 
-div {
-    outline: 1px solid red;
-}
-
 .tillView {
     width: 100%;
-    outline: 1px dashed black;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -48,7 +62,69 @@ div {
 }
 
 .item {
-    outline: 1px dashed red;
     padding: 0.5rem;
     flex: 1;
+}
+
+.loginInputButton {
+    width: 33%;
+    flex: 1 0 33%;
+    padding: 1rem;
+}
+
+.loginInputContainer {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.loginTop {
+    display: flex;
+}
+
+.loginCode {
+    width: calc(200%/3);
+    font-size: x-large;
+    overflow: auto;
+    padding: 25px;
+}
+
+.loginBack {
+    width: calc(100%/3);
+    text-align: center;
+}
+
+.login {
+    width: 100%;
+    padding: 25px;
+    font-size: xx-large;
+}
+
+.activeSeller {
+    width: 70%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #23272b;
+}
+
+.changeSellerButton {
+    width: 30%;
+    height: 50%;
+}
+
+.modalClose {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.quarterQuad {
+    width: 50%;
+    height: 50%
+}
+
+.halfQuad {
+    width: 100%;
+    height: 50%
 }

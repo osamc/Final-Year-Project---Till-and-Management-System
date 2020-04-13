@@ -1,0 +1,40 @@
+<div class="page">
+
+    <div class="transactionInfo">
+        <span>{{activeTransaction.salesDate | oapiDate}}</span>
+        <br>
+        <span style="left: 0; position: absolute;">Seller: {{activeTransaction.seller?.id}}</span>
+        <span style="right: 0; position: absolute;">Total: £{{activeTransaction | totalPrice | number : '1.2'}}</span>
+    </div>
+    <br>
+    <div class="transactionView">
+        <table class="table" style="overflow: auto;">
+            <thead>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of activeTransaction.transactions">
+                    <td>{{row.product.name}}</td>
+                    <td>{{row.quantity}}</td>
+                    <td>£{{row.price | number : '1.2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="transNav">
+        <div class="back">
+            <button (click)="changeActive(-1)" class="fillDiv btn btn-dark"><i class="fas fa-angle-left"></i></button>
+        </div>
+        <div class="navspacing"></div>
+        <div class="forward">
+            <button (click)="changeActive(1)" class="btn btn-dark fillDiv"><i class="fas fa-angle-right"></i></button>
+        </div>
+    </div>
+
+</div>

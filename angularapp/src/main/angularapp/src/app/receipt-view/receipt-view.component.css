@@ -9,3 +9,9 @@
     height: 90%;
     overflow: auto;
 }
+
+.quantity {
+    font-size: medium;
+    float: right;
+    padding: 10px;
+}

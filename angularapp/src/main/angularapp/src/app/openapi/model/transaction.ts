@@ -10,10 +10,12 @@
  * Do not edit the class manually.
  */
 import { TransactionRecord } from './transactionRecord';
+import { Seller} from './seller'
 
 export interface Transaction { 
     transactionId?: number;
     sellerId?: number;
     salesDate?: Date;
     transactions?: Array<TransactionRecord>;
+    seller?: Seller;
 }

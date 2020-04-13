@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ToasterService, ToastType } from 'src/app/toaster/toaster.service';
 import { ProductAPIService, Product, Group } from 'src/app/openapi';
 import { ActivatedRoute, Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product',
@@ -17,10 +18,13 @@ export class ProductComponent implements OnInit {
   selectedGroupId: number = 1;
 
   isEdit: boolean = false;
+  infoMode: boolean = false;
 
   constructor(private toaster: ToasterService,
     private productService: ProductAPIService,
-    private router: Router) {}
+    private router: Router,
+    public modal: NgbModal) {
+    }
 
   ngOnInit() {
     this.productService.getGroups(false).subscribe(res => {

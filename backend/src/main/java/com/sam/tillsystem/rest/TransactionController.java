@@ -61,9 +61,23 @@ public class TransactionController {
 
 	@GetMapping(value = "getTransactions", produces = "application/json")
 	@Operation(summary = "Gets all Transactions", description = "Returns all Transactions found within the database", responses = {
-			@ApiResponse(responseCode = "200", description = "Product list returned") })
+			@ApiResponse(responseCode = "200", description = "Transaction list returned") })
 	ResponseEntity<List<Transaction>> getTransactions() {
 		return new ResponseEntity<>(this.transactionService.getTransactions(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "sellerTransaction/{id}", produces = "application/json")
+	@Operation(summary = "Get transactions associated with a seller", description = "Returns a list of transactions associated with a given seller", responses = {
+			@ApiResponse(responseCode = "200", description = "Transaction list returned") })
+	ResponseEntity<List<Transaction>> getSellerTransactions(@PathVariable("id") @Parameter(description = "Id of seller to find transactions for") int id) {
+		return new ResponseEntity<>(this.transactionService.getTransactionsForUser(id), HttpStatus.OK);
+	} 
+	
+	@GetMapping(value = "newestTrans", produces = "application/json") 
+	@Operation(summary = "Get the newest transaction", description = "Returns the newest transaction within the database to be shown within the transaction display component", responses = {
+			@ApiResponse(responseCode = "200", description = "Newest transaction returned") })
+	ResponseEntity<Transaction> getNewest() {
+		return new ResponseEntity<>(this.transactionService.getNewestTransaction(), HttpStatus.OK);
 	}
 
 }

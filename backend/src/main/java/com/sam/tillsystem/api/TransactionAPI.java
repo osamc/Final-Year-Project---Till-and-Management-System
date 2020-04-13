@@ -33,5 +33,19 @@ public interface TransactionAPI {
 	 */
 	public List<Transaction> getTransactions();
 	
+	/**
+	 * Get all transactions that are associated with the given user id
+	 * @param id the user id to find
+	 * @return a {@link List} of {@link Transaction}s associated with the user
+	 */
+	public List<Transaction> getTransactionsForUser(int id);
+
+	/**
+	 * Gets the newest transaction to be displayed
+	 * @return the newest {@link Transaction}
+	 */
+	public Transaction getNewestTransaction();
+	
+	
 	
 }

@@ -10,6 +10,7 @@ import { SellerComponent } from './seller-components/seller/seller.component';
 import { PagelistComponent } from './page-components/pagelist/pagelist.component';
 import { PageComponent } from './page-components/page/page.component';
 import { TillComponent } from './till/till.component';
+import { TransactionViewComponent } from './transaction-view/transaction-view.component';
 
 
 const routes: Routes = [{path: "dashboard", component: DashboardComponent}, 
@@ -26,9 +27,11 @@ const routes: Routes = [{path: "dashboard", component: DashboardComponent},
   {path: "page/create", component: PageComponent},
   {path: "page/edit/:id", component: PageComponent},
   {path: "*", redirectTo: "product/list", pathMatch: 'full'}, 
-  {path: "", redirectTo: "product/list", pathMatch: 'full'}
+  {path: "", redirectTo: "product/list", pathMatch: 'full'},
+
 ]},
 {path: "till", component: TillComponent},
+{path: "transview", component: TransactionViewComponent},
 {path: "*", redirectTo: 'dashboard', pathMatch: 'full'},
 {path: "", redirectTo: 'dashboard', pathMatch: 'full'}];
 

@@ -3,6 +3,8 @@ package com.sam.tillsystem.models.product;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.sam.tillsystem.models.user.Seller;
+
 public class Transaction {
 
 	private int transactionId;
@@ -10,7 +12,7 @@ public class Transaction {
 	private LocalDateTime salesDate;
 	
 	private List<TransactionRecord> transactions;
-	
+	private Seller seller;
 	
 	public int getTransactionId() {
 		return this.transactionId;
@@ -48,6 +50,14 @@ public class Transaction {
 		return this;
 	}
 	
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public Transaction setSeller(Seller seller) {
+		this.seller = seller;
+		return this;
+	}
 	
 	
 }

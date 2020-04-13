@@ -1,5 +1,5 @@
 import { Injectable, ApplicationRef, ChangeDetectorRef, NgZone } from '@angular/core';
-import { Product, TransactionRecord, SellerAPIService } from './openapi';
+import { Product, TransactionRecord, SellerAPIService, TransactionAPIService, Transaction } from './openapi';
 import { SellerService } from './seller.service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -17,7 +17,10 @@ export class ReceiptService {
   //the active transactions to display within the component
   activeTransactions: TransactionRecord[] = [];
 
-  constructor(private sellerService: SellerService) {
+  quantity: string = "";
+
+  constructor(private sellerService: SellerService,
+    private transactionService: TransactionAPIService) {
     //subscribe to any seller change events
     //we will use this to swap the transactions shown on screen
     this.sellerService.activeSeller.subscribe(newSeller => {
@@ -55,33 +58,96 @@ export class ReceiptService {
   //x rows
   addItem(product: Product) {
     let lastItem = this.activeTransactions.slice(-1)[0];
+    let quantity = this.getQuantity();
+    let price = (product.price * quantity);
 
     if (lastItem && lastItem.product.id === product.id) {
-      lastItem.quantity++;
-      lastItem.price += product.price;
+      lastItem.quantity += quantity;
+      lastItem.price += price;
     } else {
-      this.activeTransactions.push({ quantity: 1, product: product, price: product.price });
+      this.activeTransactions.push({ quantity: quantity, product: product, price: price});
     }
 
-    this.runningTotal += product.price;
+    this.runningTotal += price;
     this.updateEvent.next(null);
 
+  }
+
+  getQuantity(): number {
+    let toReturn = 1;
+
+    if (this.quantity.includes("X")) {
+      toReturn = +(this.quantity.replace('X', ''));
+      this.quantity = "";
+    }
+    return toReturn;
   }
 
   //removes an item from transactions
   removeItem(index: any) {
     let item = this.activeTransactions[+index];
-    item.quantity -= 1;
-    item.price -= item.product.price;
-    if (item.quantity == 0) {
+    let quantity = this.getQuantity();
+    let price = (item.product.price * quantity);
+
+    if (item.quantity - quantity <= 0) {
+      this.runningTotal -= item.price;
       this.activeTransactions.splice(index, 1);
+    } else {
+      item.quantity -= quantity;
+      item.price -= price;
+      this.runningTotal -= price;
     }
-    this.runningTotal -= item.product.price;
   }
 
   //Clears the transaction
   clearTransaction() {
     this.activeTransactions = [];
+    this.runningTotal = 0;
   }
+
+  quantityAppend(char: any) {
+    if (char === "X") {
+      if (this.quantity.length == 0) {
+        return;
+      }
+    } 
+
+    if (this.quantity.includes('X')) {
+      this.quantity = "";
+    }
+      
+    this.quantity += char;
+
+    this.transactionService.getSellerTransactions(this.sellerService.activeSeller.value.id).subscribe(res => {
+      console.log(res);
+    })
+  
+  }
+
+  payment(amount?: any) {
+    amount = amount ? amount : (this.quantity.includes('X') ? 0 : this.quantity);
+    //convert pence into pounds
+    amount = amount / 100;
+
+    this.runningTotal -= amount;
+
+    if (this.activeTransactions.length == 0 && this.runningTotal < 0) {
+      this.runningTotal = 0;
+    }
+
+    this.quantity = "";
+
+    if (this.runningTotal < 0 && this.activeTransactions.length > 0) {
+      let pizza: Transaction = {}; 
+      pizza.transactions = this.activeTransactions;
+      pizza.sellerId = this.sellerService.activeSeller.value.id;
+      this.transactionService.createTransaction(pizza).subscribe(res => {
+        this.activeTransactions = [];
+      });
+    }
+
+  }
+
+
 
 }

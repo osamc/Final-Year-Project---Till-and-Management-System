@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -131,6 +132,28 @@ public class TransactionTests {
 		
 		assertTrue(before.size() == 1);
 		assertTrue(after.size() == 0);
+	}
+	
+	@Test
+	public void testGetTransactionsForSeller() {
+		
+		List<Transaction> transaction = new ArrayList<Transaction>();
+		
+		for(int i = 0; i < 10; i ++) {
+			Transaction created = createTransaction();
+			for(int j = 0; j < 10; j++) {
+				Transaction t = transactionService.createTransaction(created);
+				transaction.add(t);
+			}
+		}
+		
+		int random = new Random().nextInt(10);
+		
+		List<Transaction> transactionList = transactionService.getTransactionsForUser(random);
+		
+		assertTrue(transactionList.size() == 10);
+		assertTrue(transactionList.get(2).getSellerId() == random);
+		
 	}
 	
 

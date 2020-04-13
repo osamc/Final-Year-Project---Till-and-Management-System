@@ -1,0 +1,10 @@
+.quantityButton {
+    width: 33%;
+    flex: 1 0 33%;
+}
+
+.quantityContainer {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}

@@ -16,6 +16,10 @@ export class SidebarService {
     this.isSidebarEnabled = !this.isSidebarEnabled;
   }
 
+  toggleBurgerIcon() {
+    this.burgerIconHidden = !this.burgerIconHidden;
+  }
+
   setShowBurgerIcon(shownFlag: boolean) {
     this.burgerIconHidden = !shownFlag;
   }

@@ -1,10 +1,13 @@
 package com.sam.tillsystem.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Seller {
 
 	private int id;
 	
 	private String name;
+	
 	private String loginCode;
 	
 	public Seller() {
@@ -29,6 +32,7 @@ public class Seller {
 		return this;
 	}
 	
+	@JsonIgnore
 	public String getLogin() {
 		return this.loginCode;
 	}

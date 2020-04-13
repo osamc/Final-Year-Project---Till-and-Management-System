@@ -26,6 +26,10 @@ import { ReceiptService } from './receipt.service';
 import { TillComponent } from './till/till.component';
 import { ReceiptViewComponent } from './receipt-view/receipt-view.component';
 import { environment } from 'src/environments/environment';
+import { QuantityComponent } from './quantity/quantity.component';
+import { TransactionViewComponent } from './transaction-view/transaction-view.component';
+import { OapiDatePipe } from './oapi-date.pipe';
+import { TotalPricePipe } from './total-price.pipe';
 
 
 @NgModule({
@@ -43,7 +47,11 @@ import { environment } from 'src/environments/environment';
     GroupsComponent,
     TillbuttonComponent,
     TillComponent,
-    ReceiptViewComponent
+    ReceiptViewComponent,
+    QuantityComponent,
+    TransactionViewComponent,
+    OapiDatePipe,
+    TotalPricePipe
   ],
   imports: [
     BrowserModule,

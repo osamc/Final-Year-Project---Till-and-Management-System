@@ -1,3 +1,28 @@
 .form-error input {
     border-left: 5px solid red;
 }
+
+.infoModeClose {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.imagePreview {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    height: 250px;
+    width: 250px
+}
+
+.imagePreview img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}

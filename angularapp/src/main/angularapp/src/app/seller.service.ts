@@ -12,6 +12,8 @@ export class SellerService {
   activeSeller: BehaviorSubject<Seller>;
   previousSeller: Seller;
 
+  loginCode: string = " ";
+
   constructor(private sellerService: SellerAPIService,
     private toaster: ToasterService) { 
       //by using a behaviour subject we are able to notify apps when
@@ -31,9 +33,24 @@ export class SellerService {
       } else {
         this.toaster.createToast("No user found with that code.", ToastType.DANGER);
       }
+
+      this.loginCode = "";
+
     }, err => {
       this.toaster.createToast("No user found with that code.", ToastType.DANGER);
     })
+  }
+
+  appendLogin(char: string) {
+    this.loginCode += char;
+  }
+
+  backspaceLogin() {
+    this.loginCode = this.loginCode.slice(0, -1);
+  }
+
+  submit() {
+    this.login(this.loginCode.trim());
   }
 
 }

@@ -2,7 +2,9 @@ package com.sam.tillsystem.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,16 @@ import org.springframework.stereotype.Repository;
 import com.sam.tillsystem.api.TransactionAPI;
 import com.sam.tillsystem.models.product.Transaction;
 import com.sam.tillsystem.models.product.TransactionRecord;
+import com.sam.tillsystem.models.user.Seller;
 
 @Repository
 public class TransactionImpl extends BaseImpl implements TransactionAPI {
 
 	@Autowired
 	ProductImpl productService;
+	
+	@Autowired
+	SellerImpl sellerService;
 
 	private RowMapper<Transaction> transactionMapper = new RowMapper<Transaction>() {
 
@@ -28,6 +34,9 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 			trans.setTransactionId(rs.getInt("transaction_id"));
 			trans.setSellerId(rs.getInt("seller_id"));
 			trans.setSalesDate(rs.getTimestamp("date").toLocalDateTime());
+			
+			Seller seller = sellerService.getSeller(trans.getSellerId());
+			trans.setSeller(seller);
 
 			List<TransactionRecord> list = template.query("SELECT * FROM transaction_details WHERE trans_id=?",
 					new Object[] { trans.getTransactionId() }, new int[] { Types.INTEGER }, recordMapper);
@@ -69,7 +78,7 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 	public Transaction createTransaction(Transaction transaction) {
 
 		this.template.update("INSERT INTO transaction_record (seller_id, date) VALUES (?,?)",
-				new Object[] { transaction.getSellerId(), transaction.getSalesDate() },
+				new Object[] { transaction.getSellerId(), new Timestamp(new Date().getTime()) },
 				new int[] { Types.INTEGER, Types.TIMESTAMP });
 
 		Transaction fromDb = getNewestTransaction();
@@ -95,7 +104,8 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 				new int[] { Types.INTEGER }) > 0;
 	}
 
-	private Transaction getNewestTransaction() {
+	@Override
+	public Transaction getNewestTransaction() {
 		return this.template.query("SELECT * FROM transaction_record ORDER BY transaction_id DESC LIMIT 1", transactionMapper).stream().findFirst()
 		.orElse(null);
 	}
@@ -103,6 +113,11 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 	@Override
 	public List<Transaction> getTransactions() {
 		return this.template.query("SELECT * FROM transaction_record", transactionMapper);
+	}
+
+	@Override
+	public List<Transaction> getTransactionsForUser(int id) {
+		return this.template.query("SELECT * FROM transaction_record WHERE seller_id=?", new Object[] {id} , new int[] {Types.INTEGER} , transactionMapper);
 	}
 
 }

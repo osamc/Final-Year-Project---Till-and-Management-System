@@ -8,18 +8,107 @@
         <div *ngFor="let row of productArray; let y = index" class="tillRow">
             <div *ngFor="let product of row; let x = index" class="item">
                 <div *ngIf="product" style="height: 100%;">
-                    <app-tillbutton style="height: 100%; " [product]="product" [creationMode]="false"></app-tillbutton>
+                    <app-tillbutton style="height: 100%; " [product]="product" [infoMode]="infoMode" [creationMode]="false"></app-tillbutton>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="pageNavigation">
-        nav
+
+        <div style="flex: 1">
+            <div class="navScroll">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="changeNavPage(-1)"><i class="fas fa-angle-up"></i></button>
+            </div>
+
+            <div class="navButtons">
+                <div class="navigationButton" *ngFor="let page of toDisplay">
+                    <button class="btn btn-secondary fillDiv " (click)="navigate(page)">{{page.name}}</button>
+                </div>
+            </div>
+
+            <div class="navScroll">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="changeNavPage(1)"><i class="fas fa-angle-down"></i></button>
+            </div>
+        </div>
+
     </div>
 
+
     <div class="userInput">
-        input
+        <div style="width: 25%">
+            <app-quantity></app-quantity>
+        </div>
+        <div style="width: 25%; display: flex; flex-flow: wrap;">
+            <div *ngFor="let amount of paymentOptions" class="quarterQuad" (click)="makePayment(amount.amount)">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="makePayment(amount.amount)">{{amount.display}}</button>
+            </div>
+        </div>
+        <div style="width: 25%; display: flex; flex-flow: wrap;">
+            <div class="quarterQuad">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="clearTransaction()">Clear Transaction</button>
+            </div>
+            <div class="quarterQuad">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="toggleInfo()">{{infoMode ? 'Disable Info' : 'Enable Info'}}</button>
+            </div>
+            <div class="halfQuad">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="openSettings(settings)">Settings</button>
+            </div>
+        </div>
+        <div style="width: 25%;display: flex; flex-flow: wrap;">
+            <div class="activeSeller bg-dark text-white">Active Seller: {{sellerService.activeSeller.value?.name}}</div>
+            <div class="changeSellerButton">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="changeSeller(login)">Change User</button>
+            </div>
+            <div class="halfQuad">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="viewTransactions()"> View Transactions</button>
+            </div>
+        </div>
     </div>
 
 </div>
+
+<!--Login modal-->
+<ng-template #login let-modal>
+    <div class="modal-body">
+
+        <div class="modalClose">
+            <button class="btn btn-dark btn-lg" (click)="modal.close('login')">X</button>
+        </div>
+
+        <div class="loginTop">
+            <div class="loginCode">
+                {{sellerService.loginCode}}
+            </div>
+            <div class="loginBack" (click)="loginBackspace()">
+                <i class="fas fa-backspace fa-5x"></i>
+            </div>
+        </div>
+
+        <div class="loginInputContainer">
+            <button class="btn btn-dark loginInputButton btnRemoveRadius" *ngFor="let number of [1,2,3,4,5,6,7,8,9,0]" (click)="loginAppend(number)">{{number}}</button>
+        </div>
+
+
+        <button class="btn btn-dark fillDiv btnRemoveRadius login" (click)="modal.close('login')">Login</button>
+
+    </div>
+</ng-template>
+
+<ng-template #settings let-modal>
+    <div class="modal-body">
+        <div class="modalClose">
+            <button class="btn btn-dark btn-lg" (click)="modal.close('login')">X</button>
+        </div>
+
+        <div style="width: 100%; height: 15vh; display: flex; flex-wrap: wrap;">
+            <div style="width: 50%; height: 10vh" (click)="toggleSidebar()">
+                Toggle Sidebar
+            </div>
+            <div style="width: 50%; height: 10vh" (click)="toggleBurgerIcon()">
+                Toggle Sidebar button
+            </div>
+        </div>
+
+    </div>
+</ng-template>
