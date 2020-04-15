@@ -32,12 +32,8 @@ export class PageComponent implements OnInit {
     private productService: ProductAPIService,
     private pageService: PageAPIService,
     private router: Router,
-    private toaster: ToasterService,
-    private sellerService: SellerService) { }
+    private toaster: ToasterService) { }
 
-    changeUser(id: any) {
-      this.sellerService.login(id);
-    }
 
   ngOnInit() {
     this.productService.getGroups(true).subscribe(res => {
@@ -107,7 +103,6 @@ export class PageComponent implements OnInit {
   }
 
   createDefs() {
-
     this.page.productAssociations = [];
     
     for(let i = 0; i < this.productArray.length; i++) {

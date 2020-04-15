@@ -8,7 +8,7 @@
         <div *ngFor="let row of productArray; let y = index" class="tillRow">
             <div *ngFor="let product of row; let x = index" class="item">
                 <div *ngIf="product" style="height: 100%;">
-                    <app-tillbutton style="height: 100%; " [product]="product" [infoMode]="infoMode" [creationMode]="false"></app-tillbutton>
+                    <app-tillbutton style="height: 100%; " [product]="product" [isInfo]="infoMode" [isCreation]="false" [isDisabled]="sellerService.activeSeller.value === null"></app-tillbutton>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
 
             <div class="navButtons">
                 <div class="navigationButton" *ngFor="let page of toDisplay">
-                    <button class="btn btn-secondary fillDiv " (click)="navigate(page)">{{page.name}}</button>
+                    <button class="btn btn-dark fillDiv " (click)="navigate(page)">{{page.name}}</button>
                 </div>
             </div>
 
@@ -40,19 +40,19 @@
             <app-quantity></app-quantity>
         </div>
         <div style="width: 25%; display: flex; flex-flow: wrap;">
-            <div *ngFor="let amount of paymentOptions" class="quarterQuad" (click)="makePayment(amount.amount)">
-                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="makePayment(amount.amount)">{{amount.display}}</button>
+            <div *ngFor="let amount of paymentOptions" class="quarterQuad">
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="makePayment(amount.amount)" [disabled]="sellerService.activeSeller.value === null">{{amount.display}}</button>
             </div>
         </div>
         <div style="width: 25%; display: flex; flex-flow: wrap;">
             <div class="quarterQuad">
-                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="clearTransaction()">Clear Transaction</button>
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="clearTransaction()" [disabled]="sellerService.activeSeller.value === null">Clear Transaction</button>
             </div>
             <div class="quarterQuad">
                 <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="toggleInfo()">{{infoMode ? 'Disable Info' : 'Enable Info'}}</button>
             </div>
             <div class="halfQuad">
-                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="openSettings(settings)">Settings</button>
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="openSettings(settings)" [disabled]="sellerService.activeSeller.value === null">Settings</button>
             </div>
         </div>
         <div style="width: 25%;display: flex; flex-flow: wrap;">
@@ -61,7 +61,7 @@
                 <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="changeSeller(login)">Change User</button>
             </div>
             <div class="halfQuad">
-                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="viewTransactions()"> View Transactions</button>
+                <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="viewTransactions()" [disabled]="sellerService.activeSeller.value === null"> View Transactions</button>
             </div>
         </div>
     </div>
@@ -80,8 +80,8 @@
             <div class="loginCode">
                 {{sellerService.loginCode}}
             </div>
-            <div class="loginBack" (click)="loginBackspace()">
-                <i class="fas fa-backspace fa-5x"></i>
+            <div class="loginBack">
+                <button class="btn btn-dark fillDiv btnRemoveRadius" (click)="loginBackspace()"><i class="fas fa-backspace fa-5x"></i></button>
             </div>
         </div>
 
@@ -100,13 +100,13 @@
         <div class="modalClose">
             <button class="btn btn-dark btn-lg" (click)="modal.close('login')">X</button>
         </div>
-
         <div style="width: 100%; height: 15vh; display: flex; flex-wrap: wrap;">
-            <div style="width: 50%; height: 10vh" (click)="toggleSidebar()">
-                Toggle Sidebar
+            <div style="width: 45%; height: 10vh">
+                <button class="btn btn-dark fillDiv" (click)="toggleSidebar()">Toggle Sidebar</button>
             </div>
-            <div style="width: 50%; height: 10vh" (click)="toggleBurgerIcon()">
-                Toggle Sidebar button
+            <div style="width: 10%"></div>
+            <div style="width: 45%; height: 10vh">
+                <button class="btn btn-dark fillDiv" (click)="toggleBurgerIcon()">Toggle Slider button</button>
             </div>
         </div>
 

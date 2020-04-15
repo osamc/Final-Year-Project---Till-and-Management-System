@@ -30,6 +30,7 @@ import { QuantityComponent } from './quantity/quantity.component';
 import { TransactionViewComponent } from './transaction-view/transaction-view.component';
 import { OapiDatePipe } from './oapi-date.pipe';
 import { TotalPricePipe } from './total-price.pipe';
+import { DashGraphComponent } from './dash-graph/dash-graph.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { TotalPricePipe } from './total-price.pipe';
     QuantityComponent,
     TransactionViewComponent,
     OapiDatePipe,
-    TotalPricePipe
+    TotalPricePipe,
+    DashGraphComponent
   ],
   imports: [
     BrowserModule,

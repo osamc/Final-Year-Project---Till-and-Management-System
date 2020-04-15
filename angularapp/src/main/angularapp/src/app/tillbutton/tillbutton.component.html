@@ -1,11 +1,9 @@
-<div class="tillContainer" (click)="addItem()">
-
+<div class="tillContainer" (click)="addItem()" [ngClass]="{'isDisabled':isDisabled}">
     <div class="cropper">
         <img *ngIf="product.image" [src]="product.image" />
     </div>
-
-    <div class="name">
+    <span class="name">
         {{product.name}}
-    </div>
+    </span>
 
 </div>

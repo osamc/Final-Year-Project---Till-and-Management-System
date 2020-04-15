@@ -27,12 +27,10 @@
     .ng-valid[required],
     .ng-valid.required {
         border: 1px solid rgb(0, 255, 13);
-        /* green */
     }
     
     .ng-invalid:not(form) {
         border: 1px solid #a94442;
-        /* red */
     }
     
     .fillDiv {
@@ -43,10 +41,4 @@
     .btnRemoveRadius {
         border-radius: 0px;
         border: 1px solid #23272b;
-    }
-    
-    @include media-breakpoint-between(xs, sm) {
-        .btn {
-            @include button-size($input-btn-padding-y-sm, $input-btn-padding-x-sm, $font-size-sm, $line-height-sm, $btn-border-radius-sm);
-        }
     }

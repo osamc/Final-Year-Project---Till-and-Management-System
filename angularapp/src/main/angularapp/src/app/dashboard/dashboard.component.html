@@ -2,17 +2,22 @@
     <p style="text-align: center; font-size: 30px;">Dashboard</p>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 chart-container">
-                <canvas id="canvas0"></canvas>
-            </div>
-            <div class="col-sm-6 chart-container">
-                <canvas id="canvas1"></canvas>
-            </div>
+
+        <div class="graphButtons">
+            <button type="button" class="btn btn-dark" (click)="changeGraphs(-1)">
+                <span>Remove Graph <i class="fa fa-minus"></i></span> 
+            </button>
+
+            <button type="button" class="btn btn-dark" (click)="changeGraphs(1)">
+                <span>Add Graph <i class="fa fa-plus"></i></span> 
+            </button>
+
         </div>
-        <div class="row">
-            <canvas id="line-chart"></canvas>
+
+        <div class="graphs">
+            <app-dash-graph class="graph" *ngFor="let item of [].constructor(numberOfGraphs); let i = index" [setOptions]="options" [id]="i"></app-dash-graph>
         </div>
+
     </div>
 
 

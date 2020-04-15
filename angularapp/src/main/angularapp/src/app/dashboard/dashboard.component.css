@@ -2,3 +2,21 @@
     position: relative;
     margin: auto;
 }
+
+.graphButtons {
+    text-align: right;
+}
+
+.graphButtons .btn {
+    margin: 5px;
+}
+
+.graphs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.graph {
+    width: 45%;
+    margin: 10px;
+}

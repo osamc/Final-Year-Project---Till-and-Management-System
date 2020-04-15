@@ -20,6 +20,11 @@ export class SellerService {
       //the seller changes
       this.activeSeller = new BehaviorSubject<Seller>(null);
       this.previousSeller = null;
+
+      if (this.activeSeller.value){
+        console.log("null is a value");
+      }
+
     }
 
   //method for dealing with loging in
@@ -30,14 +35,15 @@ export class SellerService {
         //update the sellers
         this.previousSeller = this.activeSeller.value;
         this.activeSeller.next(res);
+        this.loginCode = "";
       } else {
         this.toaster.createToast("No user found with that code.", ToastType.DANGER);
       }
-
-      this.loginCode = "";
-
     }, err => {
       this.toaster.createToast("No user found with that code.", ToastType.DANGER);
+      this.loginCode = "";
+    }, () => {
+      
     })
   }
 

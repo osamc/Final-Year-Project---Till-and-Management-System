@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label for="sel1">Select Graph:</label>
+    <select class="form-control" [(ngModel)]="selectedGraph" (ngModelChange)="updateGraph()">
+      <option *ngFor="let option of options" [value]="option">{{option}}</option>
+    </select>
+
+    <canvas #mychart></canvas>
+</div>

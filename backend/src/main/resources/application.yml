@@ -1,0 +1,19 @@
+server:
+  port: 8443
+  use-forward-headers: true
+
+    
+spring:
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+  
+  
+  
+liquibase:
+  change-log: classpath:liquibase-changelog.xml
+    
+
+

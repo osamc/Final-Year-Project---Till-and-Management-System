@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReceiptService } from '../receipt.service';
+import { SellerService } from '../seller.service';
 
 @Component({
   selector: 'app-quantity',
@@ -10,7 +11,8 @@ export class QuantityComponent implements OnInit {
 
   quantityButtons: string[] = [];
 
-  constructor(private receiptService: ReceiptService) { }
+  constructor(private receiptService: ReceiptService,
+    public sellerService: SellerService) { }
 
   ngOnInit(): void {
     for(let i = 1; i < 10; i++) {

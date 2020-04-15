@@ -55,9 +55,9 @@ export class TillComponent implements OnInit {
   }
 
   createPaymentOptions() {
-    this.paymentOptions.push({amount: "500", image: '', display: "£5"});
-    this.paymentOptions.push({amount: "1000", image: '', display: "£10"});
-    this.paymentOptions.push({amount: "2000", image: '', display: "£20"});
+    this.paymentOptions.push({amount: "500", display: "£5"});
+    this.paymentOptions.push({amount: "1000", display: "£10"});
+    this.paymentOptions.push({amount: "2000", display: "£20"});
     this.paymentOptions.push({display: "Cash"});
   }
 

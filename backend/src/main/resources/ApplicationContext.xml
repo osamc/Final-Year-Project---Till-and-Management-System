@@ -20,8 +20,10 @@
 	<bean id="SellerImpl" class="com.sam.tillsystem.service.SellerImpl">
 	</bean>
 	
-	
 	<bean id="TransactionImpl" class="com.sam.tillsystem.service.TransactionImpl">
+	</bean>
+	
+	<bean id="ChartImpl" class="com.sam.tillsystem.service.ChartImpl">
 	</bean>
 	
 	<context:annotation-config/>

@@ -7,6 +7,7 @@ import { PageAPIService } from './api/pageAPI.service';
 import { ProductAPIService } from './api/productAPI.service';
 import { SellerAPIService } from './api/sellerAPI.service';
 import { TransactionAPIService } from './api/transactionAPI.service';
+import { ChartAPIService } from './api/chartAPI.service';
 
 @NgModule({
   imports:      [],
@@ -16,7 +17,8 @@ import { TransactionAPIService } from './api/transactionAPI.service';
     PageAPIService,
     ProductAPIService,
     SellerAPIService,
-    TransactionAPIService ]
+    TransactionAPIService,
+    ChartAPIService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {

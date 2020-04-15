@@ -17,21 +17,24 @@ export class TillbuttonComponent {
 
   //Boolean indicating what should happen when it is pressed
   @Input()
-  creationMode: boolean = false;
+  isCreation: boolean = false;
 
   @Input()
-  infoMode: boolean = false;
+  isInfo: boolean = false;
+
+  @Input()
+  isDisabled: boolean = true;
 
   constructor(private receiptService: ReceiptService,
-    private modal: NgbModal) { }
+    private modal: NgbModal) {}
 
   addItem() {
-    if (this.infoMode){
+    if (this.isInfo){
       let modal = this.modal.open(ProductComponent, {size: "lg"});
       modal.componentInstance.infoMode = true;
       modal.componentInstance.product = this.product;
     } else {
-      if (!this.creationMode) {
+      if (!this.isCreation && !this.isDisabled) {
         this.receiptService.addItem(this.product);
       }
     }
