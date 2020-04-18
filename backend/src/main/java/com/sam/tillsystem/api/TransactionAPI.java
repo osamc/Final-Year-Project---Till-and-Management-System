@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.sam.tillsystem.models.product.Transaction;
 
+/**
+ * The transaction API is used for creating and maintaining transactions
+ * @author Sam
+ *
+ */
 public interface TransactionAPI {
 
 	/**

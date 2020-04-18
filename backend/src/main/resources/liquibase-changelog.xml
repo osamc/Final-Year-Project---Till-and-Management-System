@@ -8,5 +8,7 @@
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
      
     <include file="createTables.xml"/>
+    <include file="createJwt.xml"/>
+    <include file="insertInitialJwt.xml"/>
      
 </databaseChangeLog>

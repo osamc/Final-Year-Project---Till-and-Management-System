@@ -10,27 +10,38 @@ import { ToasterService, ToastType } from 'src/app/toaster/toaster.service';
 })
 export class SellerComponent implements OnInit {
 
+  //local variable for ngmodel
   seller: Seller = {};
+  //boolean flag for edit mode
   isEdit: boolean = false;
 
+  /**
+   * @param router used to navigate the user around the application
+   * @param sellerService used to create/edit the seller
+   * @param toaster used to raise toasts
+   */
   constructor(private router: Router,
     private sellerService: SellerAPIService,
     private toaster: ToasterService) { }
 
   ngOnInit() {
+    //if we have edit in the url, then we have to ressurect the seller to be 
+    //edited
     if (this.router.url.includes("define/seller/edit")) {
       this.ressurect(this.router.url.split("/").slice(-1)[0] );
     }
   }
 
-  ressurect(id: string) {
+  //Get the editor to be edited
+  ressurect(id: string): void {
     this.sellerService.getSeller(+id).subscribe(res => {
       this.seller = res;
       this.isEdit = true;
     })
   }
 
-  createSeller() {
+  //Creates a new seller
+  createSeller(): void {
     this.sellerService.createSeller(this.seller).subscribe(res => {
       if (res) {
         this.goHome();
@@ -40,7 +51,8 @@ export class SellerComponent implements OnInit {
     });
   }
 
-  saveChanges() {
+  //Save the changes to the seller
+  saveChanges(): void {
     if (this.isEdit) {
       this.sellerService.updateSeller(this.seller).subscribe(res => {
         if (res) {
@@ -54,11 +66,13 @@ export class SellerComponent implements OnInit {
     }
   }
 
-  cancel() {
+  //cancels the form
+  cancel(): void {
     this.goHome();
   }
 
-  goHome() {
+  //Navigates the user back to the list component
+  goHome(): void {
     this.router.navigateByUrl("define/seller/list");
   }
  

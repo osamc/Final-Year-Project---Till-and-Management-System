@@ -1,3 +1,7 @@
+export * from './chartAPI.service';
+import { ChartAPIService } from './chartAPI.service';
+export * from './JWTUserAPI.service';
+import { JWTUserAPIService } from './JWTUserAPI.service';
 export * from './pageAPI.service';
 import { PageAPIService } from './pageAPI.service';
 export * from './productAPI.service';
@@ -6,4 +10,4 @@ export * from './sellerAPI.service';
 import { SellerAPIService } from './sellerAPI.service';
 export * from './transactionAPI.service';
 import { TransactionAPIService } from './transactionAPI.service';
-export const APIS = [PageAPIService, ProductAPIService, SellerAPIService, TransactionAPIService];
+export const APIS = [ChartAPIService, JWTUserAPIService, PageAPIService, ProductAPIService, SellerAPIService, TransactionAPIService];

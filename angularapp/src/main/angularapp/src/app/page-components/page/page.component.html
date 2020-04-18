@@ -1,5 +1,4 @@
 <div class="page">
-
     <form #pageForm="ngForm">
         <div class="row">
             <div class="col-sm-6">
@@ -7,7 +6,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Name</span>
                     </div>
-                    <input id="name" name="name" required [(ngModel)]="page.name" #name="ngModel" required type="text" class="form-control" placeholder="Page Name">
+                    <input id="name" name="name" [(ngModel)]="page.name" #name="ngModel" required type="text" class="form-control" placeholder="Page Name">
                     <div class="input-group-append" *ngIf="name.invalid">
                         <span class="input-group-text" ngbPopover="The name is required for a page." triggers="mouseenter:mouseleave">
                             <i class="fas fa-exclamation-triangle"></i>
@@ -15,7 +14,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-3">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -29,7 +27,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-3">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -43,14 +40,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
         <div>
             Product Associations
-
             <br>
-
             <div class="tillView">
                 <div *ngFor="let row of productArray; let y = index" class="tillRow">
                     <div *ngFor="let product of row; let x = index" class="item">
@@ -90,22 +83,17 @@
         <form>
             <div class="form-group ">
                 <label for="group ">Product Group</label>
-
                 <div class="input-group ">
                     <select id="group " class="form-control " #groupSelector [(ngModel)]="selectedGroup " name="selectedGroup " (ngModelChange)="groupSelected() ">
                         <option *ngFor="let group of groups " [ngValue]="group ">{{group.name}}</option>
                     </select>
                 </div>
-
-
-
                 <label for="product ">Product</label>
                 <div class="input-group ">
                     <select id="product " class="form-control " #product [(ngModel)]="selectedProduct " name="selectedProduct ">
                         <option *ngFor="let product of selectedGroup.products " [ngValue]="product ">{{product.name}}</option>
                     </select>
                 </div>
-
             </div>
         </form>
     </div>

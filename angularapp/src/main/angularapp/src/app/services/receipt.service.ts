@@ -1,5 +1,5 @@
 import { Injectable, ApplicationRef, ChangeDetectorRef, NgZone } from '@angular/core';
-import { Product, TransactionRecord, SellerAPIService, TransactionAPIService, Transaction } from './openapi';
+import { Product, TransactionRecord, SellerAPIService, TransactionAPIService, Transaction } from '../openapi';
 import { SellerService } from './seller.service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,6 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ReceiptService {
 
+  //Create an object that is subscribable, this allows other services 
+  //to listen for changes
   public updateEvent: BehaviorSubject<null> = new BehaviorSubject<null>(null);
 
   //Keep track of each seller and their transaction list,
@@ -17,8 +19,13 @@ export class ReceiptService {
   //the active transactions to display within the component
   activeTransactions: TransactionRecord[] = [];
 
+  //Quantity of items to add/remove
   quantity: string = "";
 
+  /**
+   * @param sellerService used to tie the transaction to the seller
+   * @param transactionService  used to create the transaction
+   */
   constructor(private sellerService: SellerService,
     private transactionService: TransactionAPIService) {
     //subscribe to any seller change events
@@ -33,7 +40,7 @@ export class ReceiptService {
   //Updates the seller now using the app, saves the previous
   //sellers transactions in an array so they can be retrieved once they log 
   //back in
-  changeSeller() {
+  changeSeller(): void {
     let previous = this.sellerService.previousSeller;
     let active = this.sellerService.activeSeller.value;
 
@@ -56,7 +63,7 @@ export class ReceiptService {
   //the quantity will update, this will make it more readable for the user.
   //This would mean they could just see the quantity instead of having to count 
   //x rows
-  addItem(product: Product) {
+  addItem(product: Product): void {
     let lastItem = this.activeTransactions.slice(-1)[0];
     let quantity = this.getQuantity();
     let price = (product.price * quantity);
@@ -65,7 +72,7 @@ export class ReceiptService {
       lastItem.quantity += quantity;
       lastItem.price += price;
     } else {
-      this.activeTransactions.push({ quantity: quantity, product: product, price: price});
+      this.activeTransactions.push({ quantity: quantity, product: product, price: price });
     }
 
     this.runningTotal += price;
@@ -84,7 +91,7 @@ export class ReceiptService {
   }
 
   //removes an item from transactions
-  removeItem(index: any) {
+  removeItem(index: any): void {
     let item = this.activeTransactions[+index];
     let quantity = this.getQuantity();
     let price = (item.product.price * quantity);
@@ -100,31 +107,33 @@ export class ReceiptService {
   }
 
   //Clears the transaction
-  clearTransaction() {
+  clearTransaction(): void {
     this.activeTransactions = [];
     this.runningTotal = 0;
   }
 
-  quantityAppend(char: any) {
+  //Append a char to the quantity
+  quantityAppend(char: any): void {
     if (char === "X") {
       if (this.quantity.length == 0) {
         return;
       }
-    } 
+    }
 
     if (this.quantity.includes('X')) {
       this.quantity = "";
     }
-      
+
     this.quantity += char;
 
     this.transactionService.getSellerTransactions(this.sellerService.activeSeller.value.id).subscribe(res => {
       console.log(res);
     })
-  
+
   }
 
-  payment(amount?: any) {
+  //Take payment and create the transaction
+  payment(amount?: any): void {
     amount = amount ? amount : (this.quantity.includes('X') ? 0 : this.quantity);
     //convert pence into pounds
     amount = amount / 100;
@@ -138,10 +147,10 @@ export class ReceiptService {
     this.quantity = "";
 
     if (this.runningTotal < 0 && this.activeTransactions.length > 0) {
-      let pizza: Transaction = {}; 
-      pizza.transactions = this.activeTransactions;
-      pizza.sellerId = this.sellerService.activeSeller.value.id;
-      this.transactionService.createTransaction(pizza).subscribe(res => {
+      let transaction: Transaction = {};
+      transaction.transactions = this.activeTransactions;
+      transaction.sellerId = this.sellerService.activeSeller.value.id;
+      this.transactionService.createTransaction(transaction).subscribe(res => {
         this.activeTransactions = [];
       });
     }

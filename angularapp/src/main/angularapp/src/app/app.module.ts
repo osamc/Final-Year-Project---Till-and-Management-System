@@ -22,15 +22,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPopoverModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { GroupsComponent } from './product-components/groups/groups.component';
 import { TillbuttonComponent } from './tillbutton/tillbutton.component';
-import { ReceiptService } from './receipt.service';
+import { ReceiptService } from './services/receipt.service';
 import { TillComponent } from './till/till.component';
 import { ReceiptViewComponent } from './receipt-view/receipt-view.component';
 import { environment } from 'src/environments/environment';
 import { QuantityComponent } from './quantity/quantity.component';
 import { TransactionViewComponent } from './transaction-view/transaction-view.component';
-import { OapiDatePipe } from './oapi-date.pipe';
-import { TotalPricePipe } from './total-price.pipe';
+import { OapiDatePipe } from './pipes/oapi-date.pipe';
+import { TotalPricePipe } from './pipes/total-price.pipe';
 import { DashGraphComponent } from './dash-graph/dash-graph.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { DashGraphComponent } from './dash-graph/dash-graph.component';
     TransactionViewComponent,
     OapiDatePipe,
     TotalPricePipe,
-    DashGraphComponent
+    DashGraphComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,4 @@
 <div class="page">
-
     <form #sellerForm="ngForm">
         <div class="row">
             <div class="col-sm-6">
@@ -15,7 +14,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -29,7 +27,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div style="text-align: right;">
@@ -37,8 +34,5 @@
             <button type="button" class="btn btn-dark" (click)="saveChanges()" style="margin-right: 10px;" [disabled]="sellerForm.invalid" *ngIf="isEdit">Save Seller</button>
             <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
         </div>
-
-
     </form>
-
 </div>

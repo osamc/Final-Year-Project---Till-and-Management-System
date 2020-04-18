@@ -1,5 +1,10 @@
 package com.sam.tillsystem.models.product;
 
+/**
+ * The representation of a transaction record. This is the product, quantity and cost contained into a single object.
+ * @author Sam
+ *
+ */
 public class TransactionRecord {
 
 	private Product product;

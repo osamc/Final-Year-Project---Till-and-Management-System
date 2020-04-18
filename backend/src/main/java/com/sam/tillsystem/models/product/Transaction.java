@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.sam.tillsystem.models.user.Seller;
 
+/**
+ * The representation of a transaction, this contains multiple {@link TransactionRecord}s, a seller id and other useful information
+ * @author Sam
+ *
+ */
 public class Transaction {
 
 	private int transactionId;

@@ -2,6 +2,11 @@ package com.sam.tillsystem.models.page;
 
 import java.util.List;
 
+/**
+ * An object representing Page information from within the database
+ * @author Sam
+ *
+ */
 public class PageInfo {
 
 	private int infoId;

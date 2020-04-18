@@ -8,10 +8,13 @@ import { Transaction, TransactionAPIService } from '../openapi';
 })
 export class TransactionViewComponent implements OnInit {
 
-
+  //local variable for ngmodel to be displayed
   activeTransaction: Transaction = {};
   id: number = 0;
 
+  /**
+   * @param transactionService  used to retrieve the transactions
+   */
   constructor(private transactionService: TransactionAPIService) {
   }
 
@@ -21,23 +24,19 @@ export class TransactionViewComponent implements OnInit {
     })
   }
 
-
-  changeActive(incrament: number) {
+  //Changes the active transaction
+  changeActive(incrament: number): void {
     this.id += incrament;
-
-
-      this.transactionService.getTransaction(this.id).subscribe(res => {
-        this.setTransaction(res);
-      }, err => {
-        this.id -= incrament;
-        console.log(this.id);
-      });
-   
-
-
+    this.transactionService.getTransaction(this.id).subscribe(res => {
+      this.setTransaction(res);
+    }, err => {
+      this.id -= incrament;
+      console.log(this.id);
+    });
   }
 
-  setTransaction(trans: any) {
+  //Sets the current transaction
+  setTransaction(trans: any): void {
     this.activeTransaction = trans;
     this.id = this.activeTransaction.transactionId;
   }

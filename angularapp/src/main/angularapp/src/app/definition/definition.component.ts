@@ -7,12 +7,8 @@ import { Router } from '@angular/router';
   templateUrl: './definition.component.html',
   styleUrls: ['./definition.component.css']
 })
-export class DefinitionComponent implements OnInit {
+export class DefinitionComponent {
 
-  constructor(private pageService: PageAPIService,
-    private router: Router) { }
-
-  ngOnInit() {
-  }
+  constructor() { }
 
 }

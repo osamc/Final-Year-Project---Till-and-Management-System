@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.sam.tillsystem.models.page.PageInfo;
 
+/**
+ * The page API, used for creating pages and maintaining pages.
+ * @author Sam
+ *
+ */
 public interface PageAPI {
 	
 	/**

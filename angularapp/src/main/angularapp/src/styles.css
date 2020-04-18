@@ -42,3 +42,8 @@
         border-radius: 0px;
         border: 1px solid #23272b;
     }
+    
+    .title {
+        text-align: center;
+        font-size: 30px;
+    }

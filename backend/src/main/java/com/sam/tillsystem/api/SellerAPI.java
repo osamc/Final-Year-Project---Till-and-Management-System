@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.sam.tillsystem.models.user.Seller;
 
+/**
+ * The Seller API is used for maintaining and creating products.
+ * @author Sam
+ *
+ */
 public interface SellerAPI {
 
 	/**

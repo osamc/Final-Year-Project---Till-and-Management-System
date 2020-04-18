@@ -29,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
+		//Register our angular app as a resource that can be accessed
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").resourceChain(true)
 				.addResolver(new PathResourceResolver() {
 					@Override

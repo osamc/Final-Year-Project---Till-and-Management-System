@@ -137,22 +137,11 @@ public class TransactionTests {
 	@Test
 	public void testGetTransactionsForSeller() {
 		
-		List<Transaction> transaction = new ArrayList<Transaction>();
+		transactionService.createTransaction(createTransaction());
 		
-		for(int i = 0; i < 10; i ++) {
-			Transaction created = createTransaction();
-			for(int j = 0; j < 10; j++) {
-				Transaction t = transactionService.createTransaction(created);
-				transaction.add(t);
-			}
-		}
+		List<Transaction> transactionList = transactionService.getTransactionsForUser(1);
 		
-		int random = new Random().nextInt(10);
-		
-		List<Transaction> transactionList = transactionService.getTransactionsForUser(random);
-		
-		assertTrue(transactionList.size() == 10);
-		assertTrue(transactionList.get(2).getSellerId() == random);
+		assertTrue(transactionList.size() == 1);
 		
 	}
 	

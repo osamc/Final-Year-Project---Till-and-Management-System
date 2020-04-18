@@ -20,6 +20,7 @@ import com.sam.tillsystem.service.ProductImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -30,10 +31,10 @@ public class ProductController {
 	@Autowired
 	ProductImpl productService;
 
-	@PostMapping(value = "createProduct",consumes = "application/json" )
+	@PostMapping(value = "createProduct", consumes = "application/json")
 	@Operation(summary = "Creates a product", description = "This method creates a product to be used within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Product created"),
-			@ApiResponse(responseCode = "400", description = "Product not created") })
+			@ApiResponse(responseCode = "400", description = "Product not created") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Product> createProduct(@RequestBody @Parameter(description = "Product to create") Product product) {
 		Product created = this.productService.createProduct(product);
 		return new ResponseEntity<>(created, created != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -42,7 +43,7 @@ public class ProductController {
 	@PostMapping(value = "updateProduct", consumes = "application/json")
 	@Operation(summary = "Updates a product", description = "This method Updates a product within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Product Updated"),
-			@ApiResponse(responseCode = "400", description = "Product not Updated") })
+			@ApiResponse(responseCode = "400", description = "Product not Updated") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Boolean> updateProduct(
 			@RequestBody @Parameter(description = "Product to be updated") Product product) {
 		Boolean success = this.productService.updateProduct(product);
@@ -52,7 +53,7 @@ public class ProductController {
 	@PostMapping(value = "deleteProduct", consumes = "application/json")
 	@Operation(summary = "Deletes a product by Id", description = "Deletes the product associated with the given Id from the datbase", responses = {
 			@ApiResponse(responseCode = "200", description = "Product deleted"),
-			@ApiResponse(responseCode = "400", description = "Product not deleted") })
+			@ApiResponse(responseCode = "400", description = "Product not deleted") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Boolean> deleteProduct(
 			@RequestBody @Parameter(description = "Product to be deleted") Product product) {
 		Boolean success = this.productService.deleteProduct(product);
@@ -63,7 +64,7 @@ public class ProductController {
 	@GetMapping(value = "getProduct/{id}", produces = "application/json")
 	@Operation(summary = "Get Product by Id", description = "Gets the product associated with the given id from the database", responses = {
 			@ApiResponse(responseCode = "200", description = "Product Found"),
-			@ApiResponse(responseCode = "400", description = "Product not found") })
+			@ApiResponse(responseCode = "400", description = "Product not found") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Product> getProduct(@PathVariable("id") @Parameter(description = "Id of product to find") int id) {
 		Product product = this.productService.getProduct(id);
 		return new ResponseEntity<>(product, product != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -71,7 +72,7 @@ public class ProductController {
 
 	@GetMapping(value = "getProducts", produces = "application/json")
 	@Operation(summary = "Gets all Products", description = "Returns all products found within the database", responses = {
-			@ApiResponse(responseCode = "200", description = "Product list returned") })
+			@ApiResponse(responseCode = "200", description = "Product list returned") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<List<Product>> getProducts() {
 		return new ResponseEntity<>(this.productService.getProducts(), HttpStatus.OK);
 	}
@@ -79,7 +80,7 @@ public class ProductController {
 	@PostMapping(value = "createGroup", consumes = "application/json")
 	@Operation(summary = "Creates a new group for products", description = "Creates a new group that a product will be able to be associated with", responses = {
 			@ApiResponse(responseCode = "200", description = "Product created"),
-			@ApiResponse(responseCode = "400", description = "Product not created") })
+			@ApiResponse(responseCode = "400", description = "Product not created") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Group> createGroup(
 			@RequestBody @Parameter(description = " The name of the group") String groupName) {
 		Group group = this.productService.createGroup(groupName);
@@ -91,7 +92,7 @@ public class ProductController {
 	@Operation(summary = "Updates a given group", description = "Updates the database entries for a given group. Currently the only thing to be "
 			+ "updated this way is the name", responses = {
 					@ApiResponse(responseCode = "200", description = "Group Updated"),
-					@ApiResponse(responseCode = "400", description = "Group not Updated") })
+					@ApiResponse(responseCode = "400", description = "Group not Updated") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Boolean> updateGroup(@RequestBody @Parameter(description = "The group to be updated") Group group) {
 		boolean success = this.productService.updateGroup(group);
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -100,7 +101,7 @@ public class ProductController {
 	@PostMapping(value = "deleteGroup", consumes = "application/json")
 	@Operation(summary = "Deletes a given group", description = "Removes the database entries for a given group.", responses = {
 			@ApiResponse(responseCode = "200", description = "Group deleted"),
-			@ApiResponse(responseCode = "400", description = "Group not deleted") })
+			@ApiResponse(responseCode = "400", description = "Group not deleted") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Boolean> deleteGroup(@RequestBody @Parameter(description = "The group to be deleted") Group group) {
 		boolean success = this.productService.deleteGroup(group);
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -108,15 +109,17 @@ public class ProductController {
 
 	@GetMapping(value = "getGroups", produces = "application/json")
 	@Operation(summary = "Gets all groups from the database", description = "Gets all groups from within the database, depending on the flag sent, the groups may also contain all their products too.", responses = {
-			@ApiResponse(responseCode = "200", description = "Group list returned") })
-	ResponseEntity<List<Group>> getGroups(@Parameter(description = "Flag indicating if products also wanted") Boolean includeProducts) {
+			@ApiResponse(responseCode = "200", description = "Group list returned") }, security = @SecurityRequirement(name = "bearerAuth"))
+	ResponseEntity<List<Group>> getGroups(
+			@Parameter(description = "Flag indicating if products also wanted") Boolean includeProducts) {
 		return new ResponseEntity<>(this.productService.getGroups(includeProducts), HttpStatus.OK);
 	}
-	
-	@GetMapping(value="getGroup/{id}", produces="application/json")
+
+	@GetMapping(value = "getGroup/{id}", produces = "application/json")
 	@Operation(summary = "Gets a group from the database", description = "Gets a group from within the database, depending on the flag sent, the groups may also contain all their products too.", responses = {
-			@ApiResponse(responseCode = "200", description = "Group returned") })
-	ResponseEntity<Group> getGroup(@PathVariable("id") @Parameter(description = "Id of group to find") int id, @Parameter(description = "Flag indicating if products also wanted") Boolean includeProducts) {
+			@ApiResponse(responseCode = "200", description = "Group returned") }, security = @SecurityRequirement(name = "bearerAuth"))
+	ResponseEntity<Group> getGroup(@PathVariable("id") @Parameter(description = "Id of group to find") int id,
+			@Parameter(description = "Flag indicating if products also wanted") Boolean includeProducts) {
 		Group group = this.productService.getGroup(id, includeProducts);
 		return new ResponseEntity<>(group, group != null ? HttpStatus.ACCEPTED : HttpStatus.BAD_REQUEST);
 	}

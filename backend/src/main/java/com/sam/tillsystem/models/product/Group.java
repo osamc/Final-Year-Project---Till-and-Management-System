@@ -2,6 +2,12 @@ package com.sam.tillsystem.models.product;
 
 import java.util.List;
 
+/**
+ * A representation of a product group as defined by the database
+ * 
+ * @author Sam
+ *
+ */
 public class Group {
 
 	private int id;

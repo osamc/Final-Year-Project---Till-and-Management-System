@@ -26,3 +26,9 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+.imageDiv {
+    height: inherit;
+    display: flex;
+    justify-content: center;
+}

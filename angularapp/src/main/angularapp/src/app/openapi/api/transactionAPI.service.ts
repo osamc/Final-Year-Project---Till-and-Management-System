@@ -70,6 +70,13 @@ export class TransactionAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             '*/*'
@@ -117,6 +124,13 @@ export class TransactionAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             '*/*'
@@ -131,6 +145,97 @@ export class TransactionAPIService {
         ];
 
         return this.httpClient.request<boolean>('delete',`${this.basePath}/transaction/deleteTransaction/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get the newest transaction
+     * Returns the newest transaction within the database to be shown within the transaction display component
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getNewest(observe?: 'body', reportProgress?: boolean): Observable<Transaction>;
+    public getNewest(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Transaction>>;
+    public getNewest(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Transaction>>;
+    public getNewest(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Transaction>('get',`${this.basePath}/transaction/newestTrans`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get transactions associated with a seller
+     * Returns a list of transactions associated with a given seller
+     * @param id Id of seller to find transactions for
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getSellerTransactions(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Transaction>>;
+    public getSellerTransactions(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Transaction>>>;
+    public getSellerTransactions(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Transaction>>>;
+    public getSellerTransactions(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getSellerTransactions.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Transaction>>('get',`${this.basePath}/transaction/sellerTransaction/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -158,6 +263,13 @@ export class TransactionAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -194,6 +306,13 @@ export class TransactionAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -208,83 +327,6 @@ export class TransactionAPIService {
         ];
 
         return this.httpClient.request<Array<Transaction>>('get',`${this.basePath}/transaction/getTransactions`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Get transactions associated with a seller
-     * Returns a list of transactions associated with a given seller
-     * @param id Id of seller to find transactions for
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getSellerTransactions(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Transaction>>;
-    public getSellerTransactions(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Transaction>>>;
-    public getSellerTransactions(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Transaction>>>;
-    public getSellerTransactions(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getSellerTransactions.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Array<Transaction>>('get',`${this.basePath}/transaction/sellerTransaction/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-     /**
-     * Get the newest transaction
-     * Returns the newest transaction within the database to be shown within the transaction display component
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getNewest(observe?: 'body', reportProgress?: boolean): Observable<Transaction>;
-    public getNewest(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Transaction>>;
-    public getNewest(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Transaction>>;
-    public getNewest(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Transaction>('get',`${this.basePath}/transaction/newestTrans`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

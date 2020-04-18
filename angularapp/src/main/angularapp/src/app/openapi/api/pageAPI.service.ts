@@ -17,7 +17,6 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { PageAdditionRequest } from '../model/pageAdditionRequest';
 import { PageInfo } from '../model/pageInfo';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -57,50 +56,6 @@ export class PageAPIService {
 
 
     /**
-     * Adds a product to a page
-     * Adds a product to a given page at the coordinates (x,y)
-     * @param body The request for adding the product to the page
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public addItemToPage(body?: PageAdditionRequest, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public addItemToPage(body?: PageAdditionRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public addItemToPage(body?: PageAdditionRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public addItemToPage(body?: PageAdditionRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.request<boolean>('post',`${this.basePath}/page/addItemToPage`,
-            {
-                body: body,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * Removes all items from a Page
      * Removes the products on a given page
      * @param body The Page to have the products removed from
@@ -115,6 +70,13 @@ export class PageAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             '*/*'
@@ -159,6 +121,13 @@ export class PageAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             '*/*'
@@ -206,6 +175,13 @@ export class PageAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             '*/*'
@@ -247,6 +223,13 @@ export class PageAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -283,6 +266,13 @@ export class PageAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -307,60 +297,6 @@ export class PageAPIService {
     }
 
     /**
-     * Removes an item from a Page
-     * Removes the product on a given page at the coordinates (x,y)
-     * @param x X coordinate of the Page
-     * @param y Y coordinate of the Page
-     * @param body The Page to have the product removed from
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public removeItemFromPage(x: number, y: number, body?: PageInfo, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public removeItemFromPage(x: number, y: number, body?: PageInfo, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public removeItemFromPage(x: number, y: number, body?: PageInfo, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public removeItemFromPage(x: number, y: number, body?: PageInfo, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (x === null || x === undefined) {
-            throw new Error('Required parameter x was null or undefined when calling removeItemFromPage.');
-        }
-
-        if (y === null || y === undefined) {
-            throw new Error('Required parameter y was null or undefined when calling removeItemFromPage.');
-        }
-
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.request<boolean>('post',`${this.basePath}/page/removeItemFromPage/${encodeURIComponent(String(x))}/${encodeURIComponent(String(y))}`,
-            {
-                body: body,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * Updates a page
      * Updates a page, uses the id the found within the object to update that record within the database
      * @param body The page to be updated
@@ -375,6 +311,13 @@ export class PageAPIService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             '*/*'

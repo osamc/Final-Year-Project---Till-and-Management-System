@@ -1,24 +1,16 @@
 <div class="page">
-    <p style="text-align: center; font-size: 30px;">Dashboard</p>
-
+    <p class="title">Dashboard</p>
     <div class="container">
-
         <div class="graphButtons">
             <button type="button" class="btn btn-dark" (click)="changeGraphs(-1)">
                 <span>Remove Graph <i class="fa fa-minus"></i></span> 
             </button>
-
             <button type="button" class="btn btn-dark" (click)="changeGraphs(1)">
                 <span>Add Graph <i class="fa fa-plus"></i></span> 
             </button>
-
         </div>
-
         <div class="graphs">
             <app-dash-graph class="graph" *ngFor="let item of [].constructor(numberOfGraphs); let i = index" [setOptions]="options" [id]="i"></app-dash-graph>
         </div>
-
     </div>
-
-
 </div>

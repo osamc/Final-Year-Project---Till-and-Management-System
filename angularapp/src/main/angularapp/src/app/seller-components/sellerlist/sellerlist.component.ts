@@ -10,8 +10,14 @@ import { Router } from '@angular/router';
 })
 export class SellerlistComponent implements OnInit {
 
+  //The list of sellers to show within the component
   sellers: Seller[] = [];
 
+  /**
+   * @param sellerAPI used to get the list of sellers
+   * @param toaster to raise toasts within the application
+   * @param router to navigate the user around the app
+   */
   constructor(private sellerAPI: SellerAPIService,
     private toaster:ToasterService,
     private router: Router) { }
@@ -21,24 +27,24 @@ export class SellerlistComponent implements OnInit {
   }
 
   //Gets the list of sellers
-  updateView() {
+  updateView(): void {
     this.sellerAPI.getSellers().subscribe(res => {
       this.sellers = res;
     })
   }
 
   //Navigates to the create seller section
-  createSeller() {
+  createSeller(): void {
     this.router.navigateByUrl('define/seller/create');
   }
 
   //Navigates to the edit seller section
-  editSeller(id: any) {
+  editSeller(id: any): void {
     this.router.navigateByUrl('define/seller/edit/' + id);
   }
 
   //Deletes the selected Seller
-  deleteSeller(seller: Seller) {
+  deleteSeller(seller: Seller): void {
     this.sellerAPI.deleteSeller(seller).subscribe(res => {
       this.updateView();
     }, err => {

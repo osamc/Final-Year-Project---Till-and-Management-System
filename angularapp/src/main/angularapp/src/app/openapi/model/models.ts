@@ -1,5 +1,5 @@
 export * from './group';
-export * from './pageAdditionRequest';
+export * from './jwtUser';
 export * from './pageDefinition';
 export * from './pageInfo';
 export * from './product';

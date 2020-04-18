@@ -119,7 +119,7 @@ public class ChartImpl extends BaseImpl implements ChartApi {
 			sql += "WHERE transaction_record.date > NOW() - interval '" + interval + "' ";
 		}
 
-		sql += "GROUP BY product.name " + "ORDER BY total DESC " + "LIIMIT 10;";
+		sql += "GROUP BY product.name " + "ORDER BY data DESC " + "LIMIT 10;";
 
 		return createSimpleBar(sql, datasetLabel, true);
 	}

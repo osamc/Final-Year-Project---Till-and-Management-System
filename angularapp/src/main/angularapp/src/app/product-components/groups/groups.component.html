@@ -15,15 +15,11 @@
                 </div>
             </div>
         </div>
-
         <br>
     </form>
-
     <div style="text-align: right;">
         <button type="button" class="btn btn-dark" (click)="createGroup()" style="margin-right: 10px;" [disabled]="groupForm.invalid" *ngIf="!isEdit">Create Group</button>
         <button type="button" class="btn btn-dark" (click)="saveChanges()" style="margin-right: 10px;" [disabled]="groupForm.invalid" *ngIf="isEdit">Save Group</button>
         <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
     </div>
-
-
 </div>

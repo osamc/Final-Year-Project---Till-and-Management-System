@@ -18,6 +18,7 @@ import com.sam.tillsystem.service.SellerImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -31,7 +32,7 @@ public class SellerController {
 	@PostMapping(value = "createSeller", consumes = "application/json")
 	@Operation(summary = "Creates a seller", description = "This method creates a Seller to be used within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller created"),
-			@ApiResponse(responseCode = "400", description = "Seller not created") })
+			@ApiResponse(responseCode = "400", description = "Seller not created") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Seller> createSeller(@RequestBody @Parameter(description = "Seller to create") Seller seller) {
 		Seller created = sellerService.createSeller(seller.getName(), seller.getLogin());
 
@@ -41,7 +42,7 @@ public class SellerController {
 	@GetMapping(value = "getSeller/{id}")
 	@Operation(summary = "Get Seller by Id", description = "Gets the Seller associated with the given id from the database", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller Found"),
-			@ApiResponse(responseCode = "400", description = "Seller not found") })
+			@ApiResponse(responseCode = "400", description = "Seller not found") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Seller> getSeller(@PathVariable("id") @Parameter(description = "Id of Seller to find") int id) {
 		Seller fromDb = this.sellerService.getSeller(id);
 		return new ResponseEntity<>(fromDb, fromDb != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -49,7 +50,7 @@ public class SellerController {
 
 	@GetMapping(value = "getSellers", produces = "application/json")
 	@Operation(summary = "Gets all Sellers", description = "Returns all Sellers found within the database", responses = {
-			@ApiResponse(responseCode = "200", description = "Sellers list returned") })
+			@ApiResponse(responseCode = "200", description = "Sellers list returned") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<List<Seller>> getSellers() {
 		return new ResponseEntity<>(this.sellerService.getSellers(), HttpStatus.OK);
 	}
@@ -57,7 +58,7 @@ public class SellerController {
 	@PostMapping(value = "updateSeller", consumes = "application/json")
 	@Operation(summary = "Updates a Seller", description = "This method Updates a Seller within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller Updates"),
-			@ApiResponse(responseCode = "400", description = "Seller not Updates") })
+			@ApiResponse(responseCode = "400", description = "Seller not Updates") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Boolean> updateSeller(@RequestBody @Parameter(description = "Seller to be updated") Seller seller) {
 		Boolean success = this.sellerService.updateSeller(seller);
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -66,7 +67,7 @@ public class SellerController {
 	@PostMapping(value = "deleteSeller", consumes = "application/json")
 	@Operation(summary = "Deletes a Seller", description = "This method Deletes a Seller within the system", responses = {
 			@ApiResponse(responseCode = "200", description = "Seller deleted"),
-			@ApiResponse(responseCode = "400", description = "Seller not deleted") })
+			@ApiResponse(responseCode = "400", description = "Seller not deleted") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Boolean> deleteSeller(@RequestBody @Parameter(description = "Seller to be deleted") Seller seller) {
 		Boolean success = this.sellerService.removeSeller(seller);
 		return new ResponseEntity<>(success, success ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -76,7 +77,7 @@ public class SellerController {
 	@Operation(summary = "Allows a seller to login", description = "This method takes a login code and checks if there is an associated seller, if so, the active seller is returned", 
 		responses = {
 			@ApiResponse(responseCode = "200", description = "Seller found and returned"),
-			@ApiResponse(responseCode = "400", description = "Seller not found") })
+			@ApiResponse(responseCode = "400", description = "Seller not found") }, security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<Seller> login(@RequestBody @Parameter(description = "Seller code to look up") String code) {
 		Seller seller = this.sellerService.login(code);
 		return new ResponseEntity<>(seller, seller != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);

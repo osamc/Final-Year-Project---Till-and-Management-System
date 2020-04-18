@@ -7,6 +7,11 @@ import com.sam.tillesystem.exceptions.ProductNotFoundException;
 import com.sam.tillsystem.models.page.PageInfo;
 import com.sam.tillsystem.models.product.Product;
 
+/**
+ * The page definition API is responsible for maintaining pages and their associations with products
+ * @author Sam
+ *
+ */
 public interface PageDefinitionAPI {
 
 	/**

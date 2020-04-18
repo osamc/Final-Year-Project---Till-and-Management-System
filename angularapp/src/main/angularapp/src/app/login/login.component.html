@@ -1,0 +1,36 @@
+<div class="page">
+    <p class="title">Login</p>
+    <form #loginForm="ngForm">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Username</span>
+                    </div>
+                    <input id="username" name="username" [(ngModel)]="username" #userInput required type="text" class="form-control" placeholder="Username">
+                    <div class="input-group-append" *ngIf="userInput.invalid">
+                        <span class="input-group-text" ngbPopover="The Username is required for login." triggers="mouseenter:mouseleave">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Password</span>
+                    </div>
+                    <input id="password" name="password" [(ngModel)]="pass" #passInput required type="password" class="form-control" placeholder="Password">
+                    <div class="input-group-append" *ngIf="passInput.invalid">
+                        <span class="input-group-text" ngbPopover="The password is required for login." triggers="mouseenter:mouseleave">
+                        <i class="fas fa-exclamation-triangle">test</i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-dark loginButton" [disabled]="loginForm.invalid" (click)="login()">Submit</button>
+    </form>
+
+</div>

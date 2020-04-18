@@ -9,34 +9,47 @@ import { PageAPIService, PageInfo } from 'src/app/openapi';
 })
 export class PagelistComponent implements OnInit {
 
+  //The list of pages to be shown within the application
   pages: PageInfo[] = [];
 
+  /**
+   * 
+   * @param router used to navigate between pages
+   * @param pageService the service used to retieve the list of pages
+   */
   constructor(private router: Router,
     private pageService: PageAPIService) { }
 
+  //When the page has loaded, we want to grab the list
+  //of pages
   ngOnInit() {
    this.loadList();
   }
 
-  loadList() {
+  //Load the list of pages and assign them to the variable used in the template
+  loadList(): void {
     this.pageService.getPages().subscribe(res => {
       this.pages = res;
     });
   }
 
-  deletePage(page: PageInfo) {
+  //Takes a given page and deletes it
+  deletePage(page: PageInfo): void {
     this.pageService.deletePage(page.infoId).subscribe(res => {
+      //if the page has been deleted, we want to reload the list
       if (res) {
         this.loadList();
       }
     });
   }
 
-  editPage(id: any) {
+  //Takes a given id and navigates the user to the edit component
+  editPage(id: any): void {
     this.router.navigateByUrl("/define/page/edit/" + id);
   }
 
-  createPage() {
+  //Navigates the user to the create page component
+  createPage(): void {
     this.router.navigateByUrl("/define/page/create")
   }
 

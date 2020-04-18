@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { SidebarService } from '../sidebar.service';
+import { SidebarService } from '../services/sidebar.service';
 import { PageAPIService, SellerAPIService, TransactionAPIService, PageInfo } from '../openapi';
-import { ReceiptService } from '../receipt.service';
-import { SellerService } from '../seller.service';
+import { ReceiptService } from '../services/receipt.service';
+import { SellerService } from '../services/seller.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TransactionViewComponent } from '../transaction-view/transaction-view.component';
 
@@ -23,29 +23,38 @@ export class TillComponent implements OnInit {
   //to represent moving backwards in pages
   canDecrease: boolean = false;
 
+  //the selected page
   selectedPage: PageInfo = {};
+
+  //The product array to display
   productArray: any[] = [[]];
 
+  //Array for containing the payment options
   paymentOptions: Object[] = [];
 
+  //Boolean flag to represent info mode (used to find out more about products)
   infoMode: boolean = false;
 
+  /**
+   * @param sidebarService Used to hide/show the sidebar
+   * @param pageAPI Used to get the pages to be shown
+   * @param transactionAPI Used to create transactions
+   * @param receiptService Used to show the reciept
+   * @param sellerService Used to login the user
+   * @param modalService Used to show modals to the user
+   */
   constructor(private sidebarService: SidebarService,
     private pageAPI: PageAPIService,
-    private sellerAPI: SellerAPIService,
     private transactionAPI: TransactionAPIService,
     private receiptService: ReceiptService,
     public sellerService: SellerService,
-    private modalService: NgbModal,
-    private sidebar: SidebarService) { 
+    private modalService: NgbModal) {
     this.sidebarService.setShowBurgerIcon(false);
     this.sidebarService.setShowSideBar(false);
   }
 
-  ngOnInit(): void {  
-
+  ngOnInit(): void {
     this.createPaymentOptions();
-
     this.pageAPI.getPages().subscribe(res => {
       this.pages = res;
       this.changeNavPage(0);
@@ -54,17 +63,19 @@ export class TillComponent implements OnInit {
     });
   }
 
-  createPaymentOptions() {
-    this.paymentOptions.push({amount: "500", display: "£5"});
-    this.paymentOptions.push({amount: "1000", display: "£10"});
-    this.paymentOptions.push({amount: "2000", display: "£20"});
-    this.paymentOptions.push({display: "Cash"});
+  //Create the payment options to be shown on the till
+  createPaymentOptions(): void {
+    this.paymentOptions.push({ amount: "500", display: "£5" });
+    this.paymentOptions.push({ amount: "1000", display: "£10" });
+    this.paymentOptions.push({ amount: "2000", display: "£20" });
+    this.paymentOptions.push({ display: "Cash" });
   }
 
-  createProductArray() {
+  //Creates the product array that is used to show the products
+  createProductArray(): void {
     this.productArray.length = this.selectedPage.yrows;
 
-    for(let i = 0; i < this.productArray.length; i++) {
+    for (let i = 0; i < this.productArray.length; i++) {
       this.productArray[i] = [];
       this.productArray[i].length = this.selectedPage.xrows;
     }
@@ -74,12 +85,15 @@ export class TillComponent implements OnInit {
     })
   }
 
-  navigate(page: PageInfo) {
+  //Selects a new page to be displayed
+  navigate(page: PageInfo): void {
     this.selectedPage = page;
     this.createProductArray();
   }
 
-  changeNavPage(incrament: number) {
+  //Change the page pagenation index
+  changeNavPage(incrament: number): void {
+    //ensure we don't go above the number of pages or below 0
     if (this.page + incrament >= 0 && (this.page + incrament) * 5 <= this.pages.length) {
       this.page += incrament;
       let startIndex = this.page * 5;
@@ -87,8 +101,9 @@ export class TillComponent implements OnInit {
     }
   }
 
-  changeSeller(modal: any) {
-    let modalRef = this.modalService.open(modal, {size: "lg", centered: true,});
+  //Opens the login modal and allows the user to change accounts
+  changeSeller(modal: any): void {
+    let modalRef = this.modalService.open(modal, { size: "lg", centered: true, });
     modalRef.result.then(res => {
       if (res === 'login') {
         this.sellerService.submit();
@@ -96,44 +111,54 @@ export class TillComponent implements OnInit {
     })
   }
 
-  openSettings(modal: any) {
-    this.modalService.open(modal, {size: "lg"});
+  //Opens the setting modal
+  openSettings(modal: any): void {
+    this.modalService.open(modal, { size: "lg" });
   }
 
-  toggleSidebar() {
-    this.sidebar.toggleSideBar();
+  //Toggles the sidebar being shown
+  toggleSidebar(): void {
+    this.sidebarService.toggleSideBar();
   }
 
-  toggleBurgerIcon() {
-    this.sidebar.toggleBurgerIcon();
+  //Toggles the sidebar burger icon from being shown
+  toggleBurgerIcon(): void {
+    this.sidebarService.toggleBurgerIcon();
   }
 
-  loginAppend(char: string) {
+  //Appends the selected char to the seller service login value
+  loginAppend(char: string): void {
     this.sellerService.appendLogin(char);
   }
 
-  loginBackspace() {
+  //Removes the last character within the login value
+  loginBackspace(): void {
     this.sellerService.backspaceLogin();
   }
 
-  loginSubmit() {
+  //Tells the seller service to login
+  loginSubmit(): void {
     this.sellerService.submit();
   }
 
-  makePayment(value?: any) {
+  //Makes a payment within the reciept service
+  makePayment(value?: any): void {
     this.receiptService.payment(value);
   }
 
-  clearTransaction() {
+  //Clears the transactions
+  clearTransaction(): void {
     this.receiptService.clearTransaction();
   }
 
-  toggleInfo() {
+  //Toggle info mode, this allows the user to find out more info about products
+  toggleInfo(): void {
     this.infoMode = !this.infoMode;
   }
 
-  viewTransactions() {
-    this.modalService.open(TransactionViewComponent, {size: "lg"});
+  //Opens a modal that shows previous transactions
+  viewTransactions(): void {
+    this.modalService.open(TransactionViewComponent, { size: "lg" });
   }
 
 }

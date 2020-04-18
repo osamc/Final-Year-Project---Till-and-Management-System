@@ -2,6 +2,11 @@ package com.sam.tillsystem.models.page;
 
 import com.sam.tillsystem.models.product.Product;
 
+/**
+ * An object representing a page definition found within the database
+ * @author Sam
+ *
+ */
 public class PageDefinition {
 	
 	private int x;

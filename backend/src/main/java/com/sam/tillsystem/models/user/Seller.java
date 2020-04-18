@@ -2,6 +2,11 @@ package com.sam.tillsystem.models.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * The representation of a user of the till system
+ * @author Sam
+ *
+ */
 public class Seller {
 
 	private int id;
@@ -32,6 +37,8 @@ public class Seller {
 		return this;
 	}
 	
+	//We ignore this field so when we send seller data to the client,
+	//we do not give out the login codes unnecessarily
 	@JsonIgnore
 	public String getLogin() {
 		return this.loginCode;

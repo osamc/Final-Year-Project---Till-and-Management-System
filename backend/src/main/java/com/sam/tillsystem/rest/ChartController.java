@@ -15,6 +15,7 @@ import com.sam.tillsystem.service.ChartImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("chart")
@@ -24,17 +25,17 @@ public class ChartController {
 
 	@Autowired
 	ChartImpl chartService;
-	
-	@GetMapping(value="getOptions", produces = "application/json")
-	@Operation(summary = "Gets a list of available charts", description ="Returns a list of strings of charts that the system is able to produce")
+
+	@GetMapping(value = "getOptions", produces = "application/json")
+	@Operation(summary = "Gets a list of available charts", description = "Returns a list of strings of charts that the system is able to produce", security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<List<String>> getAvailableCharts() {
 		return new ResponseEntity<List<String>>(this.chartService.availableCharts(), HttpStatus.OK);
 	}
-	
-	@GetMapping(value="getChart/{name}", produces = "application/json" )
-	@Operation(summary = "Returns Chart associated with selected Option", description = "Returns the associated JSON to create the chosen chart within the application")
+
+	@GetMapping(value = "getChart/{name}", produces = "application/json")
+	@Operation(summary = "Returns Chart associated with selected Option", description = "Returns the associated JSON to create the chosen chart within the application", security = @SecurityRequirement(name = "bearerAuth"))
 	ResponseEntity<String> getChart(@PathVariable("name") @Parameter(description = "The chart to get") String option) {
 		return new ResponseEntity<String>(this.chartService.getChart(option).toJson(), HttpStatus.OK);
 	}
-	
+
 }

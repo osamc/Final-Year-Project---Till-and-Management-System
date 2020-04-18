@@ -2,7 +2,6 @@
     <div id="infoModeClose" class="infoModeClose" [hidden]="!infoMode">
         <button class="btn btn-dark btn-lg" (click)="modal.dismissAll('close')">X</button>
     </div>
-
     <form #productForm="ngForm">
         <div class="row">
             <div class="col-sm-6">
@@ -18,7 +17,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -32,9 +30,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
         <div class="row">
             <div class="input-group mb-3 col-sm">
                 <div class="input-group-prepend">
@@ -43,7 +39,6 @@
                 <textarea class="form-control" id="info" name="info" [(ngModel)]="product.info" #info="ngModel" [disabled]="infoMode"></textarea>
             </div>
         </div>
-
         <div class="row">
             <div class="input-group mb-3 col-sm">
                 <div class="input-group-prepend">
@@ -57,7 +52,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row" [hidden]="infoMode">
             <div class="input-group mb-3 col-sm">
                 <div class="input-group-prepend">
@@ -68,27 +62,16 @@
                   </select>
             </div>
         </div>
-
-        <div style="height: inherit;
-        display: flex;
-        justify-content: center;">
+        <div class="imageDiv">
             <div class="imagePreview">
                 <img [src]="product.image" />
             </div>
         </div>
-
     </form>
-
     <br>
-
     <div style="text-align: right;" [hidden]="infoMode">
         <button type="button" class="btn btn-dark" (click)="createProduct()" style="margin-right: 10px;" [disabled]="productForm.invalid" *ngIf="!isEdit">Create Product</button>
         <button type="button" class="btn btn-dark" (click)="saveChanges()" style="margin-right: 10px;" [disabled]="productForm.invalid" *ngIf="isEdit">Save Product</button>
         <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
     </div>
-
-
-
-
-
 </div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+   
+    <changeSet author="sam" id="insert-jwt-user">
+    	<insert tableName="jwt">
+    		<column name="username">admin</column>
+    		<column name="password">$2a$10$wDD7.iMe24F0kw2GMJ5.iesNPffHEMVKKsYcIhQ76FMmNVzyST/eu</column>
+    	</insert>
+    </changeSet>
+   
+</databaseChangeLog>

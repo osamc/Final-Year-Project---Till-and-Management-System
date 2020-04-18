@@ -11,6 +11,7 @@ import { PagelistComponent } from './page-components/pagelist/pagelist.component
 import { PageComponent } from './page-components/page/page.component';
 import { TillComponent } from './till/till.component';
 import { TransactionViewComponent } from './transaction-view/transaction-view.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [{path: "dashboard", component: DashboardComponent}, 
@@ -32,6 +33,7 @@ const routes: Routes = [{path: "dashboard", component: DashboardComponent},
 ]},
 {path: "till", component: TillComponent},
 {path: "transview", component: TransactionViewComponent},
+{path: "login", component: LoginComponent},
 {path: "*", redirectTo: 'dashboard', pathMatch: 'full'},
 {path: "", redirectTo: 'dashboard', pathMatch: 'full'}];
 

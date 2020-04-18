@@ -3,7 +3,6 @@
         <app-receipt-view id="receiptView"></app-receipt-view>
     </div>
 
-
     <div class="tillView">
         <div *ngFor="let row of productArray; let y = index" class="tillRow">
             <div *ngFor="let product of row; let x = index" class="item">
@@ -39,12 +38,12 @@
         <div style="width: 25%">
             <app-quantity></app-quantity>
         </div>
-        <div style="width: 25%; display: flex; flex-flow: wrap;">
+        <div class="buttonQuad">
             <div *ngFor="let amount of paymentOptions" class="quarterQuad">
                 <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="makePayment(amount.amount)" [disabled]="sellerService.activeSeller.value === null">{{amount.display}}</button>
             </div>
         </div>
-        <div style="width: 25%; display: flex; flex-flow: wrap;">
+        <div class="buttonQuad">
             <div class="quarterQuad">
                 <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="clearTransaction()" [disabled]="sellerService.activeSeller.value === null">Clear Transaction</button>
             </div>
@@ -55,7 +54,7 @@
                 <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="openSettings(settings)" [disabled]="sellerService.activeSeller.value === null">Settings</button>
             </div>
         </div>
-        <div style="width: 25%;display: flex; flex-flow: wrap;">
+        <div class="buttonQuad">
             <div class="activeSeller bg-dark text-white">Active Seller: {{sellerService.activeSeller.value?.name}}</div>
             <div class="changeSellerButton">
                 <button class="btn btn-dark fillDiv btnRemoveRadius " (click)="changeSeller(login)">Change User</button>

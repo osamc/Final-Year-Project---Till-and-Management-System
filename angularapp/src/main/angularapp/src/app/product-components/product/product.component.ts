@@ -12,14 +12,24 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProductComponent implements OnInit {
 
+  //Local reference for ngmodel
   product: Product = {};
 
+  //The list of groups to be displayed within the component
   groups: Group[] = [];
+  //The selected group id
   selectedGroupId: number = 1;
 
+  //Boolean flags to represent component mode
   isEdit: boolean = false;
   infoMode: boolean = false;
 
+  /**
+   * @param toaster to raise toasts within the application
+   * @param productService  service to create and retrieve products
+   * @param router to navigate the user to other components
+   * @param modal service used to show modals
+   */
   constructor(private toaster: ToasterService,
     private productService: ProductAPIService,
     private router: Router,
@@ -37,7 +47,7 @@ export class ProductComponent implements OnInit {
   }
 
   //Ressurect a product to edit
-  ressurect(id: string) {
+  ressurect(id: string): void {
     this.productService.getProduct(+id).subscribe(result => {
       this.product = result;
       this.isEdit = true;
@@ -45,17 +55,18 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  findGroup() {
+  //Finds a group from within the list
+  findGroup(): Group {
     return this.groups.find(g => g.id == this.selectedGroupId);
   }
 
   //Navigate back to the list
-  cancel() {
+  cancel(): void {
     this.router.navigateByUrl("/define/product/list")
   }
 
   //Create the product
-  createProduct() {
+  createProduct(): void {
     this.product.group = this.findGroup();
     this.productService.createProduct(this.product).subscribe(res => {
       if (res) {
@@ -69,7 +80,7 @@ export class ProductComponent implements OnInit {
   }
 
   //Save changes to an existing product
-  saveChanges() {
+  saveChanges(): void {
     this.product.group = this.findGroup();
     this.productService.updateProduct(this.product).subscribe(res => {
       this.router.navigateByUrl("/define/product/list");

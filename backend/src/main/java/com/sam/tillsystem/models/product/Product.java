@@ -1,5 +1,10 @@
 package com.sam.tillsystem.models.product;
 
+/**
+ * A representation of a product to be used within the application
+ * @author Sam
+ *
+ */
 public class Product {
 
 	private int id;

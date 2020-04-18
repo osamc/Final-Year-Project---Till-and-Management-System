@@ -5,6 +5,11 @@ import java.util.List;
 import com.sam.tillsystem.models.product.Group;
 import com.sam.tillsystem.models.product.Product;
 
+/**
+ * The product API is used for creating and maintaining products within the system
+ * @author Sam
+ *
+ */
 public interface ProductAPI {
 	
 	/**
