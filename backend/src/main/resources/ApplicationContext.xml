@@ -26,5 +26,11 @@
 	<bean id="ChartImpl" class="com.sam.tillsystem.service.ChartImpl">
 	</bean>
 	
+	<bean id="Websockets" class="com.sam.tillsystem.service.WebsocketService">
+	</bean>
+	
+	<bean id="JwtUserImpl" class="com.sam.tillsystem.jwt.JwtUserImpl">
+	</bean>
+	
 	<context:annotation-config/>
 </beans>

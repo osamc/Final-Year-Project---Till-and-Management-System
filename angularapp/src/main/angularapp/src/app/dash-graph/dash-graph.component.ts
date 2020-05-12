@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
 import { ChartAPIService } from '../openapi/api/chartAPI.service';
 import * as Chart from 'chart.js';
+import { WebsocketService } from '../services/websocket.service';
 
 @Component({
   selector: 'app-dash-graph',
@@ -48,7 +49,12 @@ export class DashGraphComponent implements OnDestroy {
    * @param chartService this is used to retrieve the selected graph
    * to be diplayed within the application
    */
-  constructor(private chartService: ChartAPIService) { }
+  constructor(private chartService: ChartAPIService,
+      private websocketService: WebsocketService) {
+        this.websocketService.ws.subscribe(res => {
+          this.updateGraph();
+        })
+  }
   
   //We use both a hostlistener and the ondestroy angular event
   //to ensure that data is always saved

@@ -76,3 +76,8 @@ a:hover {
 .navbaritem {
     margin: 1rem;
 }
+
+.navbarbottom {
+    position: absolute;
+    bottom: 0;
+}

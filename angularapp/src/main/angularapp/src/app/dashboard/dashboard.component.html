@@ -12,5 +12,11 @@
         <div class="graphs">
             <app-dash-graph class="graph" *ngFor="let item of [].constructor(numberOfGraphs); let i = index" [setOptions]="options" [id]="i"></app-dash-graph>
         </div>
+
+
+        <div>
+            <app-recent-transactions></app-recent-transactions>
+        </div>
+
     </div>
 </div>

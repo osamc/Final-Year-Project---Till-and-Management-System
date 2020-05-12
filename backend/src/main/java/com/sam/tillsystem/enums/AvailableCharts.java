@@ -21,9 +21,9 @@ public enum AvailableCharts {
 	top10ItemsOverall("Top 10 Products by Cost"), top10ItemsWeek("Top 10 Products in the last Week by Cost"),
 	top10ItemsMonthly("Top 10 Products in the last Month by Cost"),
 	top10ItemsYearly("Top 10 Products in the last Year by Cost"), top10ItemsOverallQuantity("Top 10 Products by Cost"),
-	top10ItemsWeekQuantity("Top 10 Products in the last Week by Cost"),
-	top10ItemsMonthlyQuantity("Top 10 Products in the last Month by Cost"),
-	top10ItemsYearlyQuantity("Top 10 Products in the last Year by Cost");
+	top10ItemsWeekQuantity("Top 10 Products in the last Week by Quantity"),
+	top10ItemsMonthlyQuantity("Top 10 Products in the last Month by Quantity"),
+	top10ItemsYearlyQuantity("Top 10 Products in the last Year by Quantity");
 
 	//to be used as user facing values
 	private String toDisplay;

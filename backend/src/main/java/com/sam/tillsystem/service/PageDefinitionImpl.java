@@ -8,11 +8,11 @@ import org.springframework.jdbc.InvalidResultSetAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sam.tillesystem.exceptions.CoordinatesOutOfRangeException;
-import com.sam.tillesystem.exceptions.PageInfoNotFoundException;
-import com.sam.tillesystem.exceptions.ProductAlreadyExistsException;
-import com.sam.tillesystem.exceptions.ProductNotFoundException;
 import com.sam.tillsystem.api.PageDefinitionAPI;
+import com.sam.tillsystem.exceptions.CoordinatesOutOfRangeException;
+import com.sam.tillsystem.exceptions.PageInfoNotFoundException;
+import com.sam.tillsystem.exceptions.ProductAlreadyExistsException;
+import com.sam.tillsystem.exceptions.ProductNotFoundException;
 import com.sam.tillsystem.models.page.PageInfo;
 import com.sam.tillsystem.models.product.Product;
 

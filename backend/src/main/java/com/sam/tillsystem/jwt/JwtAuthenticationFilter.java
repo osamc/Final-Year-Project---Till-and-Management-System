@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException {
 		 try {
-			 	//we want to get the credentions from the request
+			 	//we want to get the credentials from the request
 	            JwtUser creds = new ObjectMapper()
 	                    .readValue(req.getInputStream(), JwtUser.class);
 
@@ -48,6 +48,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	        } catch (IOException e) {
 	            throw new RuntimeException(e);
 	        }
+
 	}
 
 	@Override

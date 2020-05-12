@@ -80,5 +80,14 @@ public class TransactionController {
 	ResponseEntity<Transaction> getNewest() {
 		return new ResponseEntity<>(this.transactionService.getNewestTransaction(), HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "transPage/{size}/{offset}", produces = "application/json")
+	@Operation(summary = "Get a transaction page", 
+	description = "Returns a slice of transactions from the database of a given safe and an offset", 
+	responses = { @ApiResponse(responseCode = "200", description = "Transaction page obtained")}, security = @SecurityRequirement(name = "bearerAuth"))
+	ResponseEntity<List<Transaction>> getTransactionPage(@PathVariable("size") int size, @PathVariable("offset") int offset) {
+		return new ResponseEntity<>(this.transactionService.getTransactionPage(size, offset), HttpStatus.OK);
+	}
+	
 
 }

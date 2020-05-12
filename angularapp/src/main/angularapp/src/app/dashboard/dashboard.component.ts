@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Optional, Inject } from '@angular/core';
 
-import { Chart, ChartOptions } from 'chart.js'
 import { ChartAPIService } from '../openapi/api/chartAPI.service';
+import { SidebarService } from '../services/sidebar.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   /**
    * @param chartService used to get the list of options to be displayed
    */
-  constructor(private chartService: ChartAPIService) { }
+  constructor(private chartService: ChartAPIService,
+    private sidebar: SidebarService) {
+      this.sidebar.setShowBurgerIcon(true);
+      this.sidebar.setShowSideBar(true);
+     }
 
   //The list of options to give to the child components
   options: any[] = [];

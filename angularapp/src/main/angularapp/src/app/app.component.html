@@ -33,6 +33,19 @@
             </a>
         </div>
 
+        <div class="navbarbottom">
+            <div class="navbaritem">
+                <a [routerLink]="['account']" [routerLinkActive]="['active-link']">
+                    <i class="fas fa-user"></i> Update Account
+                </a>
+            </div>
+
+            <div class="navbaritem">
+                <a (click)="logout()" href="#">
+                    <i class="fas fa-sign-out-alt"></i> Sign out
+                </a>
+            </div>
+        </div>
 
     </div>
 </div>

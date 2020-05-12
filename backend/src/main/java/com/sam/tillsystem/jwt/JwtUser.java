@@ -8,10 +8,20 @@ package com.sam.tillsystem.jwt;
  */
 public class JwtUser {
 
+	private int id;
 	private String username;
 	private String password;
 	private Boolean isFirstLogin;
 
+	public int getId() {
+		return id;
+	}
+	
+	public JwtUser setId(int id) {
+		this.id = id;
+		return this;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

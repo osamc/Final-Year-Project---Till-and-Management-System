@@ -6,3 +6,4 @@ export * from './product';
 export * from './seller';
 export * from './transaction';
 export * from './transactionRecord';
+export * from './passwordRequest';

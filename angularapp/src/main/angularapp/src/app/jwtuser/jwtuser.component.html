@@ -1,0 +1,51 @@
+<div class="page">
+    <p class="title">Update Account Details</p>
+    <form [formGroup]="accForm">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Current Password</span>
+                    </div>
+                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': accForm.controls.password.errors }">
+                    <div class="input-group-append" *ngIf="accForm.controls.password.errors">
+                        <span *ngIf="accForm.controls.password.errors.required" class="input-group-text" ngbPopover="The current password is required for updating the users password." triggers="mouseenter:mouseleave">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">New Password</span>
+                    </div>
+                    <input type="password" formControlName="newPass" class="form-control" [ngClass]="{ 'is-invalid': accForm.controls.newPass.errors }">
+                    <div class="input-group-append" *ngIf="accForm.controls.newPass.errors">
+                        <span class="input-group-text" ngbPopover="The new password is required for login." triggers="mouseenter:mouseleave">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Confirm New Password</span>
+                    </div>
+                    <input type="password" formControlName="confPass" class="form-control" [ngClass]="{ 'is-invalid': accForm.controls.confPass.errors }">
+                    <div class="input-group-append" *ngIf="accForm.controls.confPass.errors">
+                        <span *ngIf="accForm.controls.confPass.errors.required" class="input-group-text" ngbPopover="The password is required for login." triggers="mouseenter:mouseleave"><i class="fas fa-exclamation-triangle"></i></span>
+                        <span *ngIf="accForm.controls.confPass.errors.mustMatch" class="input-group-text" ngbPopover="The two passwords do not match." triggers="mouseenter:mouseleave"><i class="fas fa-exclamation-triangle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-dark rightSide" [disabled]="accForm.invalid" (click)="update()">Update Account Details</button>
+    </form>
+
+</div>

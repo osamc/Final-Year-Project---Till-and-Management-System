@@ -77,6 +77,27 @@ public class TransactionTests {
 		return transaction;
 	}
 	
+	
+	@Test
+	public void testPaging() {
+		
+		for(int i = 0; i < 100; i++) {
+			transactionService.createTransaction(createTransaction());
+		}
+		
+		transactionService.getTransactions();
+		
+		List<Transaction> page = transactionService.getTransactionPage(10, 0);
+		
+		assertTrue(page.size() == 10);
+		assertTrue(page.get(0).getTransactionId() == 100);
+		
+		page = transactionService.getTransactionPage(10, 10);
+		assertTrue(page.size() == 0);
+		
+	}
+	
+	
 	@Test
 	public void createTransactionTest() {
 		

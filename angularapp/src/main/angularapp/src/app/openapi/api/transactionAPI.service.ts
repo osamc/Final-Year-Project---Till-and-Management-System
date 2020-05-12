@@ -294,6 +294,59 @@ export class TransactionAPIService {
     }
 
     /**
+     * Get a transaction page
+     * Returns a slice of transactions from the database of a given safe and an offset
+     * @param size 
+     * @param offset 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getTransactionPage(size: number, offset: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Transaction>>;
+    public getTransactionPage(size: number, offset: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Transaction>>>;
+    public getTransactionPage(size: number, offset: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Transaction>>>;
+    public getTransactionPage(size: number, offset: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (size === null || size === undefined) {
+            throw new Error('Required parameter size was null or undefined when calling getTransactionPage.');
+        }
+
+        if (offset === null || offset === undefined) {
+            throw new Error('Required parameter offset was null or undefined when calling getTransactionPage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Transaction>>('get',`${this.basePath}/transaction/transPage/${encodeURIComponent(String(size))}/${encodeURIComponent(String(offset))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Gets all Transactions
      * Returns all Transactions found within the database
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

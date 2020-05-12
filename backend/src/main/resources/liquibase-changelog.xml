@@ -9,6 +9,8 @@
      
     <include file="createTables.xml"/>
     <include file="createJwt.xml"/>
+    <include file="JwtAccountAppend.xml"/>
     <include file="insertInitialJwt.xml"/>
-     
+   	<include file="insertInitialSeller.xml"/>
+    
 </databaseChangeLog>

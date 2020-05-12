@@ -1,0 +1,39 @@
+<div class="row">
+
+    <div class="input-group mb-3 col-sm-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Page Size</span>
+        </div>
+        <input type="number" min="0" class="form-control" placeholder="Page Size" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="pageSize" (ngModelChange)="updateTable(false)">
+    </div>
+
+    <div class="tableControls">
+        <button class="btn btn-dark" (click)="changePage(1)"><i class="fas fa-long-arrow-alt-left"></i></button>
+        <button class="btn btn-dark" (click)="updateTable(true)"><i class="fas fa-sync-alt"></i></button>
+        <button class="btn btn-dark" (click)="changePage(-1)"><i class="fas fa-long-arrow-alt-right"></i></button>
+    </div>
+
+
+
+</div>
+
+<br>
+
+
+
+<table class="table">
+    <thead>
+        <th scope="col">Time</th>
+        <th scope="col">Transaction ID</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <td>{{transaction.salesDate | oapiDate}}</td>
+            <td>{{transaction.transactionId}}</td>
+            <td>£{{transaction | totalPrice | number: '1.2'}}</td>
+            <td><button class="btn btn-dark" (click)="openTransaction(transaction)"><i class="fas fa-eye"></i></button></td>
+        </tr>
+    </tbody>
+</table>

@@ -15,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.sam.tillesystem.exceptions.CoordinatesOutOfRangeException;
-import com.sam.tillesystem.exceptions.PageInfoNotFoundException;
-import com.sam.tillesystem.exceptions.ProductAlreadyExistsException;
-import com.sam.tillesystem.exceptions.ProductNotFoundException;
+import com.sam.tillsystem.exceptions.CoordinatesOutOfRangeException;
+import com.sam.tillsystem.exceptions.PageInfoNotFoundException;
+import com.sam.tillsystem.exceptions.ProductAlreadyExistsException;
+import com.sam.tillsystem.exceptions.ProductNotFoundException;
 import com.sam.tillsystem.models.page.PageDefinition;
 import com.sam.tillsystem.models.page.PageInfo;
 import com.sam.tillsystem.models.product.Product;

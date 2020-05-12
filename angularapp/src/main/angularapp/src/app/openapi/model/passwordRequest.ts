@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-export interface JwtUser { 
-    id?: number;
-    username?: string;
-    password?: string;
-    firstLogin?: boolean;
+export interface PasswordRequest { 
+    currentPass?: string;
+    newPass?: string;
 }

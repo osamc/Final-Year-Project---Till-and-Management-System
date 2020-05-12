@@ -12,6 +12,7 @@ import { PageComponent } from './page-components/page/page.component';
 import { TillComponent } from './till/till.component';
 import { TransactionViewComponent } from './transaction-view/transaction-view.component';
 import { LoginComponent } from './login/login.component';
+import { JwtuserComponent } from './jwtuser/jwtuser.component';
 
 
 const routes: Routes = [{path: "dashboard", component: DashboardComponent}, 
@@ -34,6 +35,7 @@ const routes: Routes = [{path: "dashboard", component: DashboardComponent},
 {path: "till", component: TillComponent},
 {path: "transview", component: TransactionViewComponent},
 {path: "login", component: LoginComponent},
+{path: "account", component: JwtuserComponent},
 {path: "*", redirectTo: 'dashboard', pathMatch: 'full'},
 {path: "", redirectTo: 'dashboard', pathMatch: 'full'}];
 

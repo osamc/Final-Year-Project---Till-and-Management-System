@@ -50,6 +50,14 @@ public interface TransactionAPI {
 	 * @return the newest {@link Transaction}
 	 */
 	public Transaction getNewestTransaction();
+
+	/**
+	 * Gets a slice of Transactions to be shown within the application
+	 * @param size the number of transactions in the page
+	 * @param page the page offset
+	 * @return a {@link List} of {@link Transaction}s to be shown
+	 */
+	public List<Transaction> getTransactionPage(int size, int page);
 	
 	
 	

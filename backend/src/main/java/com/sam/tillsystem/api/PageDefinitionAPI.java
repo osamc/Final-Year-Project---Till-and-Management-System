@@ -1,9 +1,9 @@
 package com.sam.tillsystem.api;
 
-import com.sam.tillesystem.exceptions.CoordinatesOutOfRangeException;
-import com.sam.tillesystem.exceptions.PageInfoNotFoundException;
-import com.sam.tillesystem.exceptions.ProductAlreadyExistsException;
-import com.sam.tillesystem.exceptions.ProductNotFoundException;
+import com.sam.tillsystem.exceptions.CoordinatesOutOfRangeException;
+import com.sam.tillsystem.exceptions.PageInfoNotFoundException;
+import com.sam.tillsystem.exceptions.ProductAlreadyExistsException;
+import com.sam.tillsystem.exceptions.ProductNotFoundException;
 import com.sam.tillsystem.models.page.PageInfo;
 import com.sam.tillsystem.models.product.Product;
 

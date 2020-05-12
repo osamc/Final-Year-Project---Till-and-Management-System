@@ -7,11 +7,10 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
    
-    <changeSet author="sam" id="insert-jwt-user">
-    	<insert tableName="jwt">
-    		<column name="username">admin</column>
-    		<column name="password">$2a$10$wDD7.iMe24F0kw2GMJ5.iesNPffHEMVKKsYcIhQ76FMmNVzyST/eu</column>
-    		<column name="firstTime">1</column>
+    <changeSet author="sam" id="insert-initial-seller">
+    	<insert tableName="seller">
+    		<column name="name">default</column>
+    		<column name="login_code">1234</column>
     	</insert>
     </changeSet>
    

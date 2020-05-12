@@ -27,4 +27,18 @@ public interface JwtUserAPI {
 	 * @return a flag representing if the update was successful
 	 */
 	public boolean updateUser(JwtUser user);
+	
+	/**
+	 * Checks to see if this is the current users first login
+	 * @return flag representing if this is the users first login
+	 */
+	public boolean getFirstLogin();
+	
+	/**
+	 * Updates the logged in users password
+	 * @param req the {@link PasswordRequest} request object
+	 * @return flag representing if the request was succesful
+	 */
+	public boolean passwordUpdate(PasswordRequest req);
+
 }

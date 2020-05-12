@@ -32,6 +32,8 @@ import { OapiDatePipe } from './pipes/oapi-date.pipe';
 import { TotalPricePipe } from './pipes/total-price.pipe';
 import { DashGraphComponent } from './dash-graph/dash-graph.component';
 import { LoginComponent } from './login/login.component';
+import { JwtuserComponent } from './jwtuser/jwtuser.component';
+import { RecentTransactionsComponent } from './recent-transactions/recent-transactions.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { LoginComponent } from './login/login.component';
     OapiDatePipe,
     TotalPricePipe,
     DashGraphComponent,
-    LoginComponent
+    LoginComponent,
+    JwtuserComponent,
+    RecentTransactionsComponent
   ],
   imports: [
     BrowserModule,

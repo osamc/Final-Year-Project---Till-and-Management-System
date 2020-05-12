@@ -10,5 +10,5 @@
 </div>
 
 <div>
-    <div class="total">Total: £{{receiptService.runningTotal | number : '1.2'}} <span class="quantity">{{receiptService.quantity}}</span></div>
+    <div class="total">{{receiptService.runningTotal >= 0 ? 'Total' : 'Change'}}: £{{receiptService.runningTotal | number : '1.2'}} <span class="quantity">{{receiptService.quantity}}</span></div>
 </div>

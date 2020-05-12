@@ -19,9 +19,13 @@ export class TransactionViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transactionService.getNewest().subscribe(res => {
-      this.setTransaction(res);
-    })
+    //If this is not undefined, then it has been provided through a modal
+    if (this.activeTransaction.transactionId == undefined) {
+      this.transactionService.getNewest().subscribe(res => {
+        this.setTransaction(res);
+      })
+    }
+    
   }
 
   //Changes the active transaction

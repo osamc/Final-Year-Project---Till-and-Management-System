@@ -1,5 +1,6 @@
 package com.sam.tillsystem.service;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -22,9 +23,12 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 
 	@Autowired
 	ProductImpl productService;
-	
+
 	@Autowired
 	SellerImpl sellerService;
+
+	@Autowired
+	WebsocketService websockets;
 
 	private RowMapper<Transaction> transactionMapper = new RowMapper<Transaction>() {
 
@@ -34,7 +38,7 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 			trans.setTransactionId(rs.getInt("transaction_id"));
 			trans.setSellerId(rs.getInt("seller_id"));
 			trans.setSalesDate(rs.getTimestamp("date").toLocalDateTime());
-			
+
 			Seller seller = sellerService.getSeller(trans.getSellerId());
 			trans.setSeller(seller);
 
@@ -87,27 +91,43 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 			createRecord(fromDb.getTransactionId(), rec);
 		});
 
+		try {
+			websockets.update();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		return fromDb;
 	}
 
 	@Override
 	public Transaction getTransaction(int id) {
 
-		return this.template.query("SELECT * FROM transaction_record WHERE transaction_id=?", new Object[] { id },
-				new int[] { Types.INTEGER }, transactionMapper).stream().findFirst().orElse(null);
+		Transaction trans = this.template.query("SELECT * FROM transaction_record WHERE transaction_id=?",
+				new Object[] { id }, new int[] { Types.INTEGER }, transactionMapper).stream().findFirst().orElse(null);
 
+		return trans;
 	}
 
 	@Override
 	public boolean deleteTransaction(int id) {
-		return this.template.update("DELETE FROM transaction_record WHERE transaction_id=?", new Object[] { id },
+		boolean res = this.template.update("DELETE FROM transaction_record WHERE transaction_id=?", new Object[] { id },
 				new int[] { Types.INTEGER }) > 0;
+
+		try {
+			websockets.update();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override
 	public Transaction getNewestTransaction() {
-		return this.template.query("SELECT * FROM transaction_record ORDER BY transaction_id DESC LIMIT 1", transactionMapper).stream().findFirst()
-		.orElse(null);
+		return this.template
+				.query("SELECT * FROM transaction_record ORDER BY transaction_id DESC LIMIT 1", transactionMapper)
+				.stream().findFirst().orElse(null);
 	}
 
 	@Override
@@ -117,7 +137,13 @@ public class TransactionImpl extends BaseImpl implements TransactionAPI {
 
 	@Override
 	public List<Transaction> getTransactionsForUser(int id) {
-		return this.template.query("SELECT * FROM transaction_record WHERE seller_id=?", new Object[] {id} , new int[] {Types.INTEGER} , transactionMapper);
+		return this.template.query("SELECT * FROM transaction_record WHERE seller_id=?", new Object[] { id },
+				new int[] { Types.INTEGER }, transactionMapper);
+	}
+	
+	@Override
+	public List<Transaction> getTransactionPage(int size, int page) {
+		return this.template.query("SELECT * FROM transaction_record ORDER BY date DESC LIMIT ? OFFSET ?", new Object[] {size, size * page}, new int[] {Types.INTEGER, Types.INTEGER}, transactionMapper);
 	}
 
 }

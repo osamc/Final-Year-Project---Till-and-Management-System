@@ -54,6 +54,12 @@ export class TokenService {
     localStorage.setItem('btoken', this.tokenAPI.configuration.accessToken.toString());
   }
 
+  clearToken() {
+    localStorage.removeItem('btoken');
+    this.tokenAPI.configuration.accessToken = "";
+    this.testToken();
+  }
+
   //Logs in the user
   login(username: string, password: string) {
     let user: JwtUser = {username: username, password: password};

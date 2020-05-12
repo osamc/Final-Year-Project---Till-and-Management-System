@@ -1,4 +1,4 @@
-package com.sam.tillesystem.exceptions;
+package com.sam.tillsystem.exceptions;
 
 public class ProductAlreadyExistsException extends Exception {
 
