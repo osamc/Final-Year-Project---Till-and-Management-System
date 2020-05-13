@@ -75,6 +75,10 @@ export class ReceiptService {
       this.activeTransactions.push({ quantity: quantity, product: product, price: price });
     }
 
+    if (this.runningTotal < 0) {
+      this.runningTotal = 0;
+    } 
+
     this.runningTotal += price;
     this.updateEvent.next(null);
 
@@ -146,7 +150,7 @@ export class ReceiptService {
 
     this.quantity = "";
 
-    if (this.runningTotal < 0 && this.activeTransactions.length > 0) {
+    if (this.runningTotal <= 0 && this.activeTransactions.length > 0) {
       let transaction: Transaction = {};
       transaction.transactions = this.activeTransactions;
       transaction.sellerId = this.sellerService.activeSeller.value.id;
